@@ -1,0 +1,314 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: "framework-tools";
+	src:url("../fonts/framework-tools.eot");
+	src:url("../fonts/framework-tools.eot?#iefix") format("embedded-opentype"),
+		url("../fonts/framework-tools.woff") format("woff"),
+		url("../fonts/framework-tools.ttf") format("truetype"),
+		url("../fonts/framework-tools.svg#framework-tools") format("svg");
+	font-weight: normal;
+	font-style: normal;
+
+}
+
+[data-icon]:before {
+	font-family: "framework-tools" !important;
+	content: attr(data-icon);
+	font-style: normal !important;
+	font-weight: normal !important;
+	font-variant: normal !important;
+	text-transform: none !important;
+	speak: none;
+	line-height: 1;
+	font-size: 1.2em;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+[class^="ftools-"]:before,
+[class*=" ftools-"]:before {
+	font-family: "framework-tools" !important;
+	font-style: normal !important;
+	font-weight: normal !important;
+	font-variant: normal !important;
+	text-transform: none !important;
+	speak: none;
+	line-height: 1;
+	font-size: 1.3em;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1 [class^="ftools-"]:before,
+h1 [class*=" ftools-"]:before,
+h1 [data-icon]:before {
+	font-size: 1em;
+}
+
+.ftools-bug:before {
+	content: "a";
+}
+.ftools-android:before {
+	content: "b";
+}
+.ftools-apple:before {
+	content: "c";
+}
+.ftools-sort-desc:before {
+	content: "d";
+}
+.ftools-sort-asc:before {
+	content: "e";
+}
+.ftools-file-full:before {
+	content: "f";
+}
+.ftools-shield:before {
+	content: "g";
+}
+.ftools-star-half:before {
+	content: "h";
+}
+.ftools-keyboard:before {
+	content: "i";
+}
+.ftools-link-broken:before {
+	content: "j";
+}
+.ftools-plus:before {
+	content: "k";
+}
+.ftools-minus:before {
+	content: "l";
+}
+.ftools-folder-open:before {
+	content: "m";
+}
+.ftools-github:before {
+	content: "n";
+}
+.ftools-tablet:before {
+	content: "o";
+}
+.ftools-mobile:before {
+	content: "p";
+}
+.ftools-desktop:before {
+	content: "q";
+}
+.ftools-notebook:before {
+	content: "r";
+}
+.ftools-idea:before {
+	content: "v";
+}
+.ftools-sitemap:before {
+	content: "w";
+}
+.ftools-wizard:before {
+	content: "x";
+}
+.ftools-lab:before {
+	content: "y";
+}
+.ftools-link:before {
+	content: "z";
+}
+.ftools-bell-empty:before {
+	content: "A";
+}
+.ftools-unlock:before {
+	content: "B";
+}
+.ftools-mark:before {
+	content: "C";
+}
+.ftools-upload:before {
+	content: "D";
+}
+.ftools-new-window:before {
+	content: "E";
+}
+.ftools-cogs:before {
+	content: "F";
+}
+.ftools-chat:before {
+	content: "G";
+}
+.ftools-key:before {
+	content: "H";
+}
+.ftools-eye:before {
+	content: "s";
+}
+.ftools-info:before {
+	content: "t";
+}
+.ftools-help:before {
+	content: "u";
+}
+.ftools-remove:before {
+	content: "J";
+}
+.ftools-minus-circle:before {
+	content: "K";
+}
+.ftools-tags:before {
+	content: "L";
+}
+.ftools-lock:before {
+	content: "M";
+}
+.ftools-blocks:before {
+	content: "N";
+}
+.ftools-download:before {
+	content: "O";
+}
+.ftools-star:before {
+	content: "P";
+}
+.ftools-mail:before {
+	content: "Q";
+}
+.ftools-folder:before {
+	content: "R";
+}
+.ftools-terminal:before {
+	content: "S";
+}
+.ftools-code:before {
+	content: "T";
+}
+.ftools-card:before {
+	content: "U";
+}
+.ftools-ok:before {
+	content: "V";
+}
+.ftools-star-full:before {
+	content: "W";
+}
+.ftools-print:before {
+	content: "X";
+}
+.ftools-tag:before {
+	content: "Y";
+}
+.ftools-mark-full:before {
+	content: "Z";
+}
+.ftools-bell-full:before {
+	content: "0";
+}
+.ftools-off:before {
+	content: "1";
+}
+.ftools-file:before {
+	content: "2";
+}
+.ftools-linux:before {
+	content: "3";
+}
+.ftools-windows:before {
+	content: "4";
+}
+.ftools-maintenance:before {
+	content: "5";
+}
+.ftools-update:before {
+	content: "I";
+}
+.ftools-attach:before {
+	content: "6";
+}
+.ftools-back-in-time:before {
+	content: "7";
+}
+.ftools-bell:before {
+	content: "8";
+}
+.ftools-brush:before {
+	content: "!";
+}
+.ftools-chart-bar:before {
+	content: "\";
+}
+.ftools-clock:before {
+	content: "#";
+}
+.ftools-docs:before {
+	content: "$";
+}
+.ftools-down-open:before {
+	content: "%";
+}
+.ftools-flow-cascade:before {
+	content: "&";
+}
+.ftools-gauge:before {
+	content: "'";
+}
+.ftools-globe:before {
+	content: ")";
+}
+.ftools-left-open:before {
+	content: "(";
+}
+.ftools-location:before {
+	content: "*";
+}
+.ftools-menu:before {
+	content: "+";
+}
+.ftools-pencil:before {
+	content: ",";
+}
+.ftools-pause:before {
+	content: "-";
+}
+.ftools-play:before {
+	content: ".";
+}
+.ftools-popup:before {
+	content: "/";
+}
+.ftools-right-open:before {
+	content: ":";
+}
+.ftools-search:before {
+	content: ";";
+}
+.ftools-switch:before {
+	content: "<";
+}
+.ftools-up-open:before {
+	content: "=";
+}
+.ftools-user:before {
+	content: ">";
+}
+.ftools-users:before {
+	content: "?";
+}
+.ftools-vcard:before {
+	content: "@";
+}
+.ftools-hourglass:before {
+	content: "[";
+}
+.ftools-rss:before {
+	content: "9";
+}
+.ftools-database:before {
+	content: "]";
+}
+.ftools-briefcase:before {
+	content: "^";
+}
+.ftools-plus-circle:before {
+	content: "_";
+}

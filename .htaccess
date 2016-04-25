@@ -1,0 +1,8 @@
+Options +FollowSymlinks
+php_value zlib.output_compression off
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    #RewriteBase /frameworktools
+    RewriteRule ^$ public/ [L]
+    RewriteRule (.*) public/$1 [L]
+</IfModule>
