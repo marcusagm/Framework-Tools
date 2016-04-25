@@ -4,6 +4,7 @@
 # Created by https://www.gitignore.io/api/netbeans,composer,eclipse
 
 ### NetBeans ###
+nbproject/
 nbproject/private/
 build/
 nbbuild/
