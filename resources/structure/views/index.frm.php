@@ -1,1 +1,1 @@
-<p>Projeto gerado em <?php echo date('Y-m-d H:i:s') ?></p>
+<p>Bem vindo!</p>

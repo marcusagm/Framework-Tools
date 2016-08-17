@@ -1,7 +1,8 @@
 <?php
 
 class ModulesController extends Controller {
-	public function index( $id ) {
+	public function index( $id )
+    {
 		$this->view->layout->title	= 'Modules - Framework Tools';
 		$this->view->layout->layoutName = 'default';
 		$this->view->record = new Project( $id );
@@ -12,7 +13,8 @@ class ModulesController extends Controller {
 		Session::deleteVar('flash-message');
 	}
 
-	public function generate( $id, $model ) {
+	public function generate( $id, $model )
+    {
 		$Modules = new ProjectModules( $id );
 
 		$this->view->isAjax = $this->isAjaxRequest();
@@ -30,7 +32,8 @@ class ModulesController extends Controller {
 		$this->view->model = $Modules->getModel( $model );
 	}
 
-	public function generateLayout( $id ) {
+	public function generateLayout( $id )
+    {
 		try {
 			$Layout = new ProjectLayouts( $id, 'bootstrap' );
 			$Layout->makeLayout();
@@ -43,7 +46,8 @@ class ModulesController extends Controller {
 		}
 	}
 
-	public function save() {
+	public function save()
+    {
 		try {
 			$Modules = new ProjectModules( $this->getHttpData( 'project_id' ) );
 			$modelInfo = $Modules->getModel( $this->getHttpData( 'model_name' ) );

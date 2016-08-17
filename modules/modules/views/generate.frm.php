@@ -48,17 +48,20 @@
 											<option value="text"<?php echo stripos( $field['Type'], 'char' ) !== false|| stripos( $field['Type'], 'float' ) !== false  ? ' selected' : ''?>>Text</option>
 											<option value="password"<?php echo stripos( $field['Field'], 'password' ) !== false ? ' selected' : ''?>>Password</option>
 											<option value="textarea"<?php echo stripos( $field['Type'], 'text' ) !== false ? ' selected' : ''?>>Textarea</option>
+											<option value="editor">Editor</option>
 											<option value="hidden"<?php echo $field['Field'] == 'id' ? ' selected' : ''?>>Hidden</option>
 											<option value="select"<?php echo stripos( $field['Type'], '_id' ) !== false ? ' selected' : ''?>>Select</option>
 											<option value="checkbox"<?php echo stripos( $field['Type'], 'tinyint' ) !== false ? ' selected' : ''?>>Checkbox</option>
 											<option value="radio">Radio</option>
 											<option value="file">File</option>
+											<option value="cropbox">Cropbox</option>
 											<option value="email"<?php echo stripos( $field['Field'], 'email' ) !== false ? ' selected' : ''?>>Email</option>
 											<option value="number"<?php echo stripos( $field['Type'], 'int(' ) !== false && $field['Field'] != 'id' ? ' selected' : ''?>>Number</option>
+											<option value="money"<?php echo stripos( $field['Type'], 'decimal(' ) !== false && $field['Field'] != 'id' ? ' selected' : ''?>>Money</option>
 											<option value="url"<?php echo stripos( $field['Type'], 'site' ) !== false ? ' selected' : ''?>>URL</option>
 											<option value="tel"<?php echo stripos( $field['Type'], 'phone' ) !== false ? ' selected' : ''?>>Tel</option>
-											<option value="date">Date</option>
-											<option value="time">Time</option>
+											<option value="date"<?php echo stripos( $field['Type'], 'date' ) !== false ? ' selected' : ''?>>Date</option>
+											<option value="time"<?php echo stripos( $field['Type'], 'time' ) !== false ? ' selected' : ''?>>Time</option>
 											<option value="datetime"<?php echo stripos( $field['Type'], 'datetime' ) !== false || stripos( $field['Type'], 'timestamp' ) !== false ? ' selected' : ''?>>Datetime</option>
 											<option value="range">Range</option>
 										</select>
@@ -77,7 +80,7 @@
 										</select>
 									</td>
 									<td><input name="input_required[<?php echo $field['Field'] ?>]" value="1" type="checkbox"<?php echo $field['Null'] == 'NO' && $field['Field'] != 'id' ? ' checked' : '' ?>></td>
-									<td><input name="input_grid[<?php echo $field['Field'] ?>]" value="1" type="checkbox"<?php echo $field['Field'] != 'id' ? ' checked' : '' ?>></td>
+									<td><input name="input_grid[<?php echo $field['Field'] ?>]" value="1" type="checkbox"<?php //echo $field['Field'] != 'id' ? ' checked' : '' ?>></td>
 									<td><input name="input_sort" type="radio" value="<?php echo $field['Field'] ?>"></td>
 								</tr>
 							<?php } ?>

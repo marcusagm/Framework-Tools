@@ -27,7 +27,8 @@ class ProjectModels {
 
 	private $_conn = false;
 
-	public function __construct( $id ) {
+	public function __construct( $id )
+    {
 		$ProjectConfig = new ProjectConfigs( $id );
 
 		$this->projectId = $ProjectConfig->getId();
@@ -47,26 +48,31 @@ class ProjectModels {
 		$this->readReferencedForeingKeys();
 	}
 
-	public function __destruct() {
+	public function __destruct()
+    {
 		//mysql_close($this->_conn );
 	}
 
-	public function connect() {
+	public function connect()
+    {
 		$this->_conn = mysql_connect( $this->databaseHost, $this->databaseUsername, $this->databasePassword );
 		mysql_select_db( $this->databaseName, $this->_conn );
 	}
 
-	public function getTables() {
+	public function getTables()
+    {
 		return $this->tables;
 	}
 
-	public function getTableName( $modelName, $removePrefix = false ) {
+	public function getTableName( $modelName, $removePrefix = false )
+    {
 		$return = $removePrefix === false ? $this->databasePrefix . '_' : '';
 		$return .= $this->underscore( $modelName );
 		return $return;
 	}
 
-	public function getTableData( $table ) {
+	public function getTableData( $table )
+    {
 		if( !isset( $this->tablesColumns[$table] ) ) {
 			throw new FwException( 'The table "' . $table . '" is not found.' );
 		}
@@ -74,7 +80,8 @@ class ProjectModels {
 		return $this->tablesColumns[$table];
 	}
 
-	public function getModelNames() {
+	public function getModelNames()
+    {
 		$tables = $this->getTables();
 		$models = array();
 		foreach ( $tables as $table ) {
@@ -83,11 +90,13 @@ class ProjectModels {
 		return $models;
 	}
 
-	public function getModelName( $table ) {
+	public function getModelName( $table )
+    {
 		return $this->camelize( $this->removePrefix( $table ) );
 	}
 
-	public function getModelData( $table ) {
+	public function getModelData( $table )
+    {
 		try {
 			$model = $this->loadModelFile( $table, true );
 			if( $model === false ) {
@@ -99,7 +108,8 @@ class ProjectModels {
 		}
 	}
 
-	public function getModelStatus( $table ) {
+	public function getModelStatus( $table )
+    {
 		$model = $this->loadModelFile( $table, true );
 		if( $model === false ) {
 			return self::STATUS_NOT_GENERATED;
@@ -112,25 +122,29 @@ class ProjectModels {
 		return self::STATUS_MODIFIED;
 	}
 
-	public function getFields($table) {
+	public function getFields($table)
+    {
 		return $this->tablesColumns[$table];
 	}
 
-	public function getForeingKeys($table) {
+	public function getForeingKeys($table)
+    {
 		if( !isset( $this->tablesForeingKeys[$table] ) ) {
 			return false;
 		}
 		return $this->tablesForeingKeys[$table];
 	}
 
-	public function getReferencedForeingKeys($table) {
+	public function getReferencedForeingKeys($table)
+    {
 		if( !isset( $this->tablesReferencedForeingKeys[$table] ) ) {
 			return false;
 		}
 		return $this->tablesReferencedForeingKeys[$table];
 	}
 
-	public function updateModelsData() {
+	public function updateModelsData()
+    {
 		try {
 			$path = $this->path . 'models' . DS . 'repositories' . DS;
 			$files = glob( $path . '*.rep.php');
@@ -167,7 +181,8 @@ class ProjectModels {
 		}
 	}
 
-	public function makeRepositories( $tableNames = false ) {
+	public function makeRepositories( $tableNames = false )
+    {
 		try {
 			$ProjectConfig = new ProjectConfigs( $this->projectId );
 			$tables = $this->getTables();
@@ -223,7 +238,8 @@ class ProjectModels {
 		}
 	}
 
-	public function makeModels( $tableNames = false ) {
+	public function makeModels( $tableNames = false )
+    {
 		try {
 			$ProjectConfig = new ProjectConfigs( $this->projectId );
 
@@ -263,13 +279,15 @@ class ProjectModels {
 		}
 	}
 
-	public function hasGeneratedModels() {
+	public function hasGeneratedModels()
+    {
 		$path = $this->path . 'models' . DS;
 		$files = glob( $path . '*.mdl.php');
 		return count( $files ) > 0 ? true : false;
 	}
 
-	public function hasGeneratedModel( $table ) {
+	public function hasGeneratedModel( $table )
+    {
 		$file = PROJECT_FILES_PATH . $this->projectId . DS . 'models' . DS . $table . '.json';
 		if( !file_exists( $file ) ) {
 			return false;
@@ -277,14 +295,16 @@ class ProjectModels {
 		return true;
 	}
 
-	private function readTables() {
+	private function readTables()
+    {
 		$sql = mysql_query( 'SHOW TABLES LIKE "' . $this->databasePrefix . '%"', $this->_conn ) or die ( mysql_error() );
 		while( $result = mysql_fetch_array($sql) ) {
 			$this->tables[] = $result[0];
 		}
 	}
 
-	private function readColumns() {
+	private function readColumns()
+    {
 		$tables = $this->getTables();
 		foreach ( $tables as $table ) {
 			$sql = mysql_query('DESCRIBE ' . $table, $this->_conn ) or die ( mysql_error() );
@@ -295,7 +315,8 @@ class ProjectModels {
 		}
 	}
 
-	private function readForeingKeys() {
+	private function readForeingKeys()
+    {
 		$tables = $this->getTables();
 		foreach ( $tables as $table ) {
 			$this->tablesForeingKeys[$table] = array();
@@ -317,7 +338,8 @@ class ProjectModels {
 		}
 	}
 
-	private function readReferencedForeingKeys() {
+	private function readReferencedForeingKeys()
+    {
 		$tables = $this->getTables();
 		foreach ( $tables as $table ) {
 			$this->tablesReferencedForeingKeys[$table] = array();
@@ -341,7 +363,8 @@ class ProjectModels {
 		}
 	}
 
-	private function loadModelFile( $table, $asArray = false ) {
+	private function loadModelFile( $table, $asArray = false )
+    {
 		$file = PROJECT_FILES_PATH . $this->projectId . DS . 'models' . DS . $table . '.json';
 		if( !file_exists( $file ) ) {
 			return false;
@@ -354,15 +377,18 @@ class ProjectModels {
 		return json_decode( $contents, $asArray );
 	}
 
-	private function camelize( $text ) {
+	private function camelize( $text )
+    {
 		return str_replace( ' ', '', ucwords( str_replace( array( '_', '-' ), ' ', $text ) ) );
 	}
 
-	private function underscore( $text ) {
+	private function underscore( $text )
+    {
 		return strtolower( preg_replace( '/(?<=\\w)([A-Z])/', '_\\1', $text ) );
 	}
 
-	private function removePrefix( $text ) {
+	private function removePrefix( $text )
+    {
 		$prefix = array(
 			$this->databasePrefix . '_',
 			'_id',

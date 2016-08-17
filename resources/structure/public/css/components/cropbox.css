@@ -1,0 +1,67 @@
+.crop-viewport { width: 100%; padding: 5px; border: 1px solid #ccc; overflow: hidden; }
+.crop-viewport .crop-area {
+    position: relative;
+    height: 400px;
+    width: 100%;
+    border:1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor:move;
+}
+.crop-viewport .crop-thumbbox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /*border: 1px solid rgb(102, 102, 102);*/
+    outline: 2px dashed rgba(255,255,255,.9);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    background: none repeat scroll 0% 0% transparent;
+}
+.crop-viewport .crop-webcam-player {
+    display: none;
+    position: relative;
+    height: 400px;
+    width: 100%;
+    border:1px solid #aaa;
+    background: rgba(0,0,0,0.7);
+    overflow: hidden;
+    background-repeat: no-repeat;
+}
+.crop-viewport .crop-spinner {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 400px;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    cursor: wait;
+}
+.crop-viewport .crop-empty {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 400px;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    cursor: default;
+}
+.crop-viewport .crop-action { padding: 5px; text-align: right; }
+.crop-viewport .crop-action .btn-file { float: left }
+.crop-viewport .crop-action-webcam { display: none; padding: 5px; text-align: right; }
+
+.crop-update-viewport { display: block; width: 100% !important;  }
+.crop-update-viewport .crop-update-preview { display: block; width: 100% !important; clear: both; border: 1px solid #ccc; padding: 5px; margin-top: 5px; }
+.crop-update-viewport .crop-update-preview img { display: block; max-width: 100%; width: auto }
+.crop-update-viewport .crop-update-preview .img-thumbnail { margin: 0; padding: 0 }
+@media (max-width: 768px) {
+    .crop-update-viewport .crop-update-preview img { display: block; max-width: 100%; width: 100% }
+}

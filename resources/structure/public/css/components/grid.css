@@ -1,0 +1,39 @@
+/**
+ * 	Formatação da grid
+ */
+.grid_form { margin: 0; padding: 0px }
+.grid_view { width: 100%; margin: 10px 0 0 0; border-collapse: collapse;
+}
+.grid_view thead tr { border-bottom: 2px solid #ddd }
+.grid_view thead tr th { padding: 5px 10px; text-align: left; border: 0 none !important;
+background: #f7f7f7; /* Old browsers */
+background: -moz-linear-gradient(top,  #f7f7f7 0%, #fdfdfd 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#fdfdfd)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #f7f7f7 0%,#fdfdfd 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #f7f7f7 0%,#fdfdfd 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #f7f7f7 0%,#fdfdfd 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #f7f7f7 0%,#fdfdfd 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#fdfdfd',GradientType=0 ); /* IE6-9 */
+}
+.grid_view thead tr th a {  }
+.grid_view thead tr th.grid_view_column_sort_asc { }
+.grid_view thead tr th.grid_view_column_sort_desc { }
+.grid_view thead tr th.grid_column_select { width: 1% }
+.grid_view thead tr th.grid_column_actions { width: 120px; text-align: center }
+.grid_view thead tr th #grid_select_all { margin: 0 }
+.grid_view tbody { background: #fff }
+/*.grid_view tbody tr:nth-child(2n+1)  th,
+.grid_view tbody tr:nth-child(2n+1)  td { background: #fefefe }*/
+.grid_view tbody tr:hover { background: #eee }
+.grid_view tbody tr th,
+.grid_view tbody tr td { padding: 10px; border:0 }
+.grid_view tbody tr th.grid_column_select { width: 1%; vertical-align: middle }
+.grid_view tbody tr th.grid_checkbox_delete { margin: 0; padding: 10px 5px; }
+.grid_view tbody tr td.grid_column_actions { padding: 5px 10px; width: 120px; text-align: center }
+.grid_view tbody tr td.grid_column_method { width: 1%; text-align: center }
+.grid_view tbody tr td.grid_column_button { padding: 5px 10px; width: 1% }
+.grid_view tbody tr td.grid_column_button a { white-space: nowrap }
+.grid_search { width: 70%; float: right }
+.pagination_stats_text { display: block; margin: 10px 0; padding: 6px 0; text-align: right }
+
+.grid_column_field_id { width: 1% }

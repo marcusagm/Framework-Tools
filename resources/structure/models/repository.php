@@ -20,7 +20,8 @@ echo <<<EOF
  * @package Models
  * @subpakage Repositories
  */
-class {$tableName}Repository extends Model {
+class {$tableName}Repository extends Model
+{
 
 EOF;
 echo "\tprotected \$_tableName = '" . $this->getTableName( $tableName, true ) . "';\n";
@@ -66,7 +67,7 @@ foreach ( $fields as $key => $field ) {
 }
 echo "\t);\n\n";
 
-echo "\tpublic static function getAllRecords ( \$filter = array(), \$order = null, \$start = null, \$limit = null ) {\n";
+echo "\tpublic static function getAllRecords ( \$filter = array(), \$order = null, \$start = null, \$limit = null )\n\t{\n";
 	echo "\t\t\$" . $tableName . " = new " . $tableName . "();\n";
 	echo "\t\t\$list = $" . $tableName . "->find( \$filter, \$order, \$start, \$limit );\n\n";
 
@@ -93,7 +94,7 @@ if( is_array( $referencedForeingKeys ) ) {
 		$functionName = $this->camelize( $this->removePrefix( $relation['TABLE_NAME'] ) );
 		$objectName = $this->camelize( $this->removePrefix( $relation['TABLE_NAME'] ) );
 
-		echo "\tpublic function get" . $functionName . "( \$start = null, \$limit = null ) {\n";
+		echo "\tpublic function get" . $functionName . "( \$start = null, \$limit = null )\n\t{\n";
 			echo "\t\t\$" . $objectName . " = new " . $objectName . "();\n";
 			echo "\t\t\$list = \$" . $objectName . "->find( array(\n";
 				echo "\t\t\t'" . $relation['COLUMN_NAME'] . " = \"' . \$this->id . '\"'\n";
@@ -109,14 +110,14 @@ if( is_array( $referencedForeingKeys ) ) {
 	}
 }
 
-echo "\tprotected function beforeInsert() {\n";
+echo "\tprotected function beforeInsert()\n\t{\n";
 	if ( $hasCreatedDateField ) {
 		echo "\t\t\$this->created_at = date('Y-m-d H:i:s');\n";
 	}
 	echo "\t\treturn true;\n";
 echo "\t}\n\n";
 
-echo "\tprotected function beforeUpdate() {\n";
+echo "\tprotected function beforeUpdate()\n\t{\n";
 	if( $hasUpdatedDateField ) {
 		echo "\t\t\$this->updated_at = date('Y-m-d H:i:s');\n";
 	}

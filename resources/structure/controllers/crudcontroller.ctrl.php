@@ -57,6 +57,16 @@ class {$model}Controller extends CrudController {
 	 */
 	public \$module = null;
 
+EOF;
+
+foreach ($fields as $field) {
+    if ( $field['type'] == 'cropbox' ) {
+        echo "\n\tprivate \$old" . $field['camelcase'] . "Name = null;";
+    }
+}
+
+echo <<<EOF
+
 	/**
 	 * Mensagens de retorno para o usuário.
 	 * @var array
@@ -75,7 +85,8 @@ class {$model}Controller extends CrudController {
 	 *
 	 * @param string \$language Linguagem da requisição
 	 */
-	public function __construct( \$language = null ) {
+	public function __construct( \$language = null )
+    {
 		parent::__construct( \$language );
 	}
 
@@ -93,7 +104,8 @@ class {$model}Controller extends CrudController {
 	 * @param string|array \$filter Valor para filtagem dos registros
 	 * @return object View - Retorna a view index.frm.php
 	 */
-	public function index( \$page = 1, \$sortField = false, \$sortOrder = false, \$limit = null, \$filter = null) {
+	public function index( \$page = 1, \$sortField = false, \$sortOrder = false, \$limit = null, \$filter = null)
+    {
 		parent::index( \$page, \$sortField, \$sortOrder, \$limit, \$filter );
 	}
 
@@ -110,7 +122,8 @@ class {$model}Controller extends CrudController {
 	 * @param int \$limit Número máximo de registros na listagem
 	 * @return array Lista de registros
 	 */
-	protected function getRecords( \$filter = array(), \$order = null, \$start = null, \$limit = null ) {
+	protected function getRecords( \$filter = array(), \$order = null, \$start = null, \$limit = null )
+    {
 		return parent::getRecords( \$filter, \$order, \$start, \$limit );
 	}
 
@@ -122,7 +135,8 @@ class {$model}Controller extends CrudController {
 	 * @param array \$filter Valor para filtagem dos registros
 	 * @return int Total de registros
 	 */
-	protected function getTotalRecords( \$filter = array() ) {
+	protected function getTotalRecords( \$filter = array() )
+    {
 		return parent::getTotalRecords( \$filter );
 	}
 
@@ -140,7 +154,8 @@ class {$model}Controller extends CrudController {
 	 * @param string \$query String de pesquisa
 	 * @return void
 	 */
-	public function search() {
+	public function search()
+    {
 		parent::search();
 	}
 
@@ -158,7 +173,8 @@ class {$model}Controller extends CrudController {
 	 * @param int \$id Id do registro
 	 * @return object View - Renderiza a view form.fm.php
 	 */
-	public function view( \$id ) {
+	public function view( \$id )
+    {
 		parent::view( \$id );
 	}
 
@@ -175,7 +191,8 @@ class {$model}Controller extends CrudController {
 	 *
 	 * @return object View - Renderiza a view form.fm.php
 	 */
-	public function add() {
+	public function add()
+    {
 		parent::add();
 	}
 
@@ -198,7 +215,8 @@ class {$model}Controller extends CrudController {
 	 *
 	 * @return void
 	 */
-	public function create() {
+	public function create()
+    {
 		parent::create();
 	}
 
@@ -216,7 +234,8 @@ class {$model}Controller extends CrudController {
 	 * @param int \$id Id do registro
 	 * @return object View - Renderiza a view form.fm.php
 	 */
-	public function edit( \$id ) {
+	public function edit( \$id )
+    {
 		parent::edit( \$id );
 	}
 
@@ -239,7 +258,8 @@ class {$model}Controller extends CrudController {
 	 *
 	 * @return void
 	 */
-	public function update() {
+	public function update()
+    {
 		parent::update();
 	}
 
@@ -255,7 +275,8 @@ class {$model}Controller extends CrudController {
 	 *
 	 * @return void
 	 */
-	public function delete( \$id ) {
+	public function delete( \$id )
+    {
 		parent::delete( \$id );
 	}
 
@@ -268,7 +289,17 @@ class {$model}Controller extends CrudController {
 	 * @param object \$object Objeto do processo
 	 * @return void
 	 */
-	protected function beforeCreate( \$object ) {
+	protected function beforeCreate( \$object )
+    {
+EOF;
+
+foreach ($fields as $field) {
+    if ( $field['type'] == 'cropbox' ) {
+        echo "\n\t\$this->old" . $field['camelcase'] . "Name = \$object->" . $field['name'] . ";";
+    }
+}
+
+echo <<<EOF
 	}
 
 	/**
@@ -280,7 +311,34 @@ class {$model}Controller extends CrudController {
 	 * @param object \$object Objeto do processo
 	 * @return void
 	 */
-	protected function afterCreate( \$object ) {
+	protected function afterCreate( \$object )
+    {
+EOF;
+        foreach ($fields as $field) {
+            if ( $field['type'] == 'checkbox' ) {
+                echo "\n\t\t\$object->" . $field['name'] . " = $this->getHttpData('" . $field['id'] . "') ? '1' : '0';\n";
+            }
+
+            if ( $field['type'] == 'date' ) {
+                echo "\n\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
+                echo "\n\t\tif( \$date != '' ) {";
+                    echo "\n\t\t\t\$date = explode( '/', \$date );";
+                    echo "\n\t\t\t\$object->" . $field['id'] . " = date( 'Y-m-d', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] ) );";
+                echo "\n\t\t}\n";
+            }
+
+            if ( $field['type'] == 'datetime' ) {
+                echo "\n\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
+                echo "\n\t\tif( \$date != '' ) {";
+                    echo "\n\t\t\t\$date = explode( ' ', \$date );";
+                    echo "\n\t\t\t\$time = \$date[1]";
+                    echo "\n\t\t\t\$date = explode( '/', \$date[0] );";
+                    echo "\n\t\t\t\$object->" . $field['id'] . " = date( 'Y-m-d H:i:s', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] . ' ' . \$time . ':00' ) );";
+                echo "\n\t\t}\n";
+            }
+        }
+
+echo <<<EOF
 	}
 
 	/**
@@ -291,7 +349,8 @@ class {$model}Controller extends CrudController {
 	 * @param object \$object Objeto do processo
 	 * @return void
 	 */
-	protected function afterCreateSave( \$object ) {
+	protected function afterCreateSave( \$object )
+    {
 	}
 
 	/**
@@ -303,7 +362,17 @@ class {$model}Controller extends CrudController {
 	 * @param object \$object Objeto do processo
 	 * @return void
 	 */
-	protected function beforeUpdate( \$object ) {
+	protected function beforeUpdate( \$object )
+    {
+EOF;
+
+foreach ($fields as $field) {
+    if ( $field['type'] == 'cropbox' ) {
+        echo "\n\t\$this->old" . $field['camelcase'] . "Name = \$object->" . $field['name'] . ";\n";
+    }
+}
+
+echo <<<EOF
 	}
 
 	/**
@@ -315,7 +384,34 @@ class {$model}Controller extends CrudController {
 	 * @param object \$object Objeto do processo
 	 * @return void
 	 */
-	protected function afterUpdate( \$object ) {
+	protected function afterUpdate( \$object )
+    {
+EOF;
+        foreach ($fields as $field) {
+            if ( $field['type'] == 'checkbox' ) {
+                echo "\n\t\t\$object->" . $field['name'] . " = $this->getHttpData('" . $field['id'] . "') ? '1' : '0';\n";
+            }
+
+            if ( $field['type'] == 'date' ) {
+                echo "\n\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
+                echo "\n\t\tif( \$date != '' ) {";
+                    echo "\n\t\t\t\$date = explode( '/', \$date );";
+                    echo "\n\t\t\t\$object->" . $field['id'] . " = date( 'Y-m-d', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] ) );";
+                echo "\n\t\t}\n";
+            }
+
+            if ( $field['type'] == 'datetime' ) {
+                echo "\n\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
+                echo "\n\t\tif( \$date != '' ) {";
+                    echo "\n\t\t\t\$date = explode( ' ', \$date );";
+                    echo "\n\t\t\t\$time = \$date[1]";
+                    echo "\n\t\t\t\$date = explode( '/', \$date[0] );";
+                    echo "\n\t\t\t\$object->" . $field['id'] . " = date( 'Y-m-d H:i:s', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] . ' ' . \$time . ':00' ) );";
+                echo "\n\t\t}\n";
+            }
+        }
+
+echo <<<EOF
 	}
 
 	/**
@@ -326,7 +422,8 @@ class {$model}Controller extends CrudController {
 	 * @param object \$object Objeto do processo
 	 * @return void
 	 */
-	protected function afterUpdateSave( \$object ) {
+	protected function afterUpdateSave( \$object )
+    {
 	}
 
 	/**
@@ -338,7 +435,59 @@ class {$model}Controller extends CrudController {
 	 * @param object \$object Objeto do processo
 	 * @return void
 	 */
-	protected function afterSave( \$object ) {
+	protected function afterSave( \$object )
+    {
+EOF;
+foreach ($fields as $field) {
+    if ( $field['type'] == 'cropbox' ) {
+        echo "
+        // Upload da imagem do cropbox para o campo \"" . $field['name'] . "\"
+        \$photo = \$this->getHttpData('" . $field['id'] . "');
+        \$photoData = \$this->getHttpData('" . $field['id'] . "_data');
+        \$uri = substr(\$photoData, strpos(\$photoData, ',') + 1);
+        if (\$photo['error'] === UPLOAD_ERR_OK) {
+            \$path = \$object->getPhotoDirUpload();
+            \$oldFile = \$path . \$this->old" . $field['camelcase'] . "Name;
+
+            if (file_exists(\$path) === false) {
+                mkdir(\$path, 0775, true);
+            }
+            \$fileName = md5(time()) . '.jpg';
+            file_put_contents(\$path . \$fileName, base64_decode(\$uri));
+            \$object->" . $field['name'] . " = \$fileName;
+            \$object->save();
+            unlink(\$oldFile);
+        }
+        if (\$this->getHttpData('user_photo_remove') == '1') {
+            \$path = \$object->getPhotoDirUpload();
+            unlink(\$path . \$this->old" . $field['camelcase'] . "Name);
+
+            \$object->" . $field['name'] . " = null;
+            \$object->save();
+        }
+
+        ";
+    }
+    if ( $field['type'] == 'file' ) {
+        echo "\n\t\t\$file = \$_FILES['" . $field['id'] . "']";
+        echo "\n\t\tif (\$file['error'] === UPLOAD_ERR_OK) {";
+            echo "\n\t\t\t\$ext = pathinfo(\$file['name'], PATHINFO_EXTENSION);";
+            echo "\n\t\t\t\$fileName = md5(time()) . '.' . \$ext;";
+            echo "\n\t\t\t\$path = \$object->get" . $field['camelcase'] . "DirUpload();";
+            echo "\n\t\t\tif (file_exists(\$path) === false) {";
+                echo "\n\t\t\t\tmkdir(\$path, 0775, true);";
+            echo "\n\t\t\t}";
+            echo "\n\t\t\tmove_uploaded_file(";
+                echo "\n\t\t\t\t\$file['tmp_name'],";
+                echo "\n\t\t\t\t\$path . \$fileName";
+            echo "\n\t\t\t);";
+            echo "\n\t\t\t\$object->" . $field['name'] . " = \$fileName;";
+            echo "\n\t\t\t\$object->save();";
+        echo "\n\t\t}\n";
+    }
+}
+
+echo <<<EOF
 	}
 
 	/**
@@ -349,7 +498,8 @@ class {$model}Controller extends CrudController {
 	 * @param object \$object Objeto do processo
 	 * @return void
 	 */
-	protected function beforeDelete( \$object ) {
+	protected function beforeDelete( \$object )
+    {
 	}
 
 	/**
@@ -360,7 +510,8 @@ class {$model}Controller extends CrudController {
 	 * @param object \$object Objeto do processo
 	 * @return void
 	 */
-	protected function afterDelete( \$object ) {
+	protected function afterDelete( \$object )
+    {
 	}
 
 	/**
@@ -373,7 +524,8 @@ class {$model}Controller extends CrudController {
 	 * @param object \$object Objeto do processo
 	 * @return void
 	 */
-	protected function beforeDeleteSelected( \$object ) {
+	protected function beforeDeleteSelected( \$object )
+    {
 	}
 
 	/**
@@ -386,7 +538,8 @@ class {$model}Controller extends CrudController {
 	 * @param object \$object Objeto do processo
 	 * @return void
 	 */
-	protected function afterDeleteSelected( \$object ) {
+	protected function afterDeleteSelected( \$object )
+    {
 	}
 }
 EOF;

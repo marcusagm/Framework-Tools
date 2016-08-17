@@ -17,7 +17,8 @@ class ProjectModules {
 
 	private $template = 'bootstrap';
 
-	public function __construct( $id ) {
+	public function __construct( $id )
+    {
 		$ProjectConfig = new ProjectConfigs( $id );
 		$ProjectModels = new ProjectModels( $id );
 
@@ -26,17 +27,20 @@ class ProjectModules {
 		$this->models = $ProjectModels->getModelNames();
 	}
 
-	public function getModels() {
+	public function getModels()
+    {
 		return $this->models;
 	}
 
-	public function getModel( $name ) {
+	public function getModel( $name )
+    {
 		$ProjectModels = new ProjectModels( $this->projectId );
 		$table = $ProjectModels->getTableName( $name );
 		return $ProjectModels->getModelData( $table );
 	}
 
-	public function getModelStatus( $name ) {
+	public function getModelStatus( $name )
+    {
 		$model = $this->loadModelFile( $name, true );
 		if( $model === false ) {
 			return self::STATUS_NOT_GENERATED;
@@ -44,7 +48,8 @@ class ProjectModules {
 		return self::STATUS_GENERATED;
 	}
 
-	public function getRegistredModules() {
+	public function getRegistredModules()
+    {
 		try {
 			$path = PROJECT_FILES_PATH . $this->projectId . DS .'modules' . DS;
 			$files = glob( $path . '*.json');
@@ -60,22 +65,26 @@ class ProjectModules {
 		}
 	}
 
-	public function getModuleName( $model ) {
+	public function getModuleName( $model )
+    {
 		$module = new String( $model );
 		$module->toLower();
 		return $module->__toString();
 	}
 
-	public function getTemplate() {
+	public function getTemplate()
+    {
 		return $this->template;
 	}
 
-	public function setTemplate( $template ) {
+	public function setTemplate( $template )
+    {
 		$this->template = $template;
 		return $this;
 	}
 
-	public function makeModule( $model, $fields ) {
+	public function makeModule( $model, $fields )
+    {
 		$module = $this->getModuleName( $model );
 
 		$this->makeController( $model, $fields );
@@ -85,12 +94,16 @@ class ProjectModules {
 		$this->registerModule( $module, $fields );
 	}
 
-	public function makeController( $model, $fields ) {
+	public function makeController( $model, $fields )
+    {
 		$ProjectConfig = new ProjectConfigs( $this->projectId );
 
 		// Cria a o título do módulo
 		$title = new String($model);
 		$title->humanize();
+
+        $table = new String( $model );
+		$table->underscore();
 
 		// Obtem a data de criação do módulo
 		$date = date('Y-m-d H:i:s');
@@ -100,18 +113,25 @@ class ProjectModules {
 
 		// Identifica o campo padrão de ordenação
 		$sortField = 'id';
+        $newFields = array();
 		foreach ( $fields as $field ) {
 			if( $field['sort'] ) {
 				$sortField = $field['name'];
 			}
+            $field['id'] = $table . '_' . $field['name'];
+            $CamelCase = new String($field['name']);
+            $CamelCase->camelize();
+            $field['camelcase'] = $CamelCase->__toString();
+            $newFields[] = $field;
 		}
+        $fields = $newFields;
 
 		ob_start();
 		include( dirname(__DIR__) .
-				DIRECTORY_SEPARATOR . 'resources' .
-				DIRECTORY_SEPARATOR . 'structure' .
-				DIRECTORY_SEPARATOR . 'controllers' .
-				DIRECTORY_SEPARATOR . 'crudcontroller.ctrl.php'
+            DIRECTORY_SEPARATOR . 'resources' .
+            DIRECTORY_SEPARATOR . 'structure' .
+            DIRECTORY_SEPARATOR . 'controllers' .
+            DIRECTORY_SEPARATOR . 'crudcontroller.ctrl.php'
 		);
 		$controller = ob_get_contents();
 		ob_end_clean();
@@ -128,7 +148,8 @@ class ProjectModules {
 		chmod( $path . strtolower( $model ) . '.ctrl.php' , 0775 );
 	}
 
-	public function makeView( $module, $fields ) {
+	public function makeView( $module, $fields )
+    {
 		ob_start();
 		include( dirname(__DIR__) .
 				DIRECTORY_SEPARATOR . 'resources' .
@@ -153,7 +174,8 @@ class ProjectModules {
 		chmod( $path . 'views' . DS . 'view.frm.php' , 0775 );
 	}
 
-	public function makeForm( $module, $fields, $model ) {
+	public function makeForm( $module, $fields, $model )
+    {
 		$table = new String( $model );
 		$table->underscore();
 
@@ -204,7 +226,8 @@ class ProjectModules {
 		chmod( $this->path . 'public' . DS . 'scripts' . DS . 'modules' .DS . $module . '_form.js' , 0775 );
 	}
 
-	public function makeList( $module, $fields ) {
+	public function makeList( $module, $fields )
+    {
 		ob_start();
 		include( dirname(__DIR__) .
 				DIRECTORY_SEPARATOR . 'resources' .
@@ -229,7 +252,8 @@ class ProjectModules {
 		chmod( $path . 'views' . DS . 'index.frm.php' , 0775 );
 	}
 
-	public function registerModule( $module, $fields ) {
+	public function registerModule( $module, $fields )
+    {
 		$file = PROJECT_FILES_PATH . $this->projectId . DS . 'modules' . DS . $module . '.json';
 
 		$json = array(
@@ -239,7 +263,8 @@ class ProjectModules {
 		chmod($file, 0775);
 	}
 
-	private function loadModelFile( $module, $asArray = false ) {
+	private function loadModelFile( $module, $asArray = false )
+    {
 		$file = PROJECT_FILES_PATH . $this->projectId . DS . 'modules' . DS . $module . '.json';
 		if( !file_exists( $file ) ) {
 			return false;

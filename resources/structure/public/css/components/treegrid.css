@@ -1,0 +1,41 @@
+/**
+ * 	Formatação da grid
+ */
+.treegrid_form { margin: 0; padding: 0px }
+.treegrid_view { width: 100%; margin: 10px 0 0 0; border-collapse: collapse;
+ -webkit-box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+}
+.grid_view thead tr { border-bottom: 2px solid #ddd }
+.treegrid_view thead tr th { padding: 10px 10px; text-align: left; border: 0 none !important
+background: #f7f7f7; /* Old browsers */
+background: -moz-linear-gradient(top,  #f7f7f7 0%, #fdfdfd 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#fdfdfd)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #f7f7f7 0%,#fdfdfd 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #f7f7f7 0%,#fdfdfd 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #f7f7f7 0%,#fdfdfd 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #f7f7f7 0%,#fdfdfd 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#fdfdfd',GradientType=0 ); /* IE6-9 */
+}
+.treegrid_view thead tr th a {  }
+.treegrid_view thead tr th.grid_view_column_sort_asc { }
+.treegrid_view thead tr th.grid_view_column_sort_desc { }
+.treegrid_view thead tr th.grid_column_select { width: 1% }
+.treegrid_view thead tr th.grid_column_actions { width: 120px; text-align: center }
+.treegrid_view thead tr th #grid_select_all { margin: 0 }
+.treegrid_view tbody { background: #fff }
+/*.grid_view tbody tr:nth-child(2n+1)  th,
+.grid_view tbody tr:nth-child(2n+1)  td { background: #fefefe }*/
+.treegrid_view tbody tr:hover { background: #eee }
+.treegrid_view tbody tr th,
+.treegrid_view tbody tr td { padding: 10px; border:0 }
+.treegrid_view tbody tr th.grid_column_select { width: 1%; text-align: left; white-space: nowrap; vertical-align: middle }
+.treegrid_view tbody tr th.grid_checkbox_delete { margin: 0; padding: 10px 5px; }
+.treegrid_view tbody tr td.grid_column_actions { padding: 5px 10px; width: 120px; text-align: center }
+.treegrid_view tbody tr td.grid_column_method { width: 1%; text-align: center }
+.treegrid_view tbody tr td.grid_column_button { padding: 5px 10px; width: 1% }
+.treegrid_view tbody tr td.grid_column_button a { white-space: nowrap }
+
+.treegrid-indent { display: inline-block; width:20px; height: 15px; position: relative;}
+.treegrid-expander { display: inline-block; width:13px; height: 15px; margin-right: 5px; position: relative; cursor: pointer;}

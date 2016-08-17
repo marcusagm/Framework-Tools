@@ -1,0 +1,28 @@
+Options +FollowSymlinks
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Altere a linha abaixo caso o projeto esteja em uma URL composta
+    # Por exemplo:
+    #   Url: http://localhost/projeto/
+    #   A linha abaixo deve ser alterada para
+    #   RewriteBase /projeto
+    #
+    RewriteBase /
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+    # Redireciona a URL pardão para favicons para o local correto
+    #
+    #RewriteRule ^favicon\.ico$ images/favicons/favicon.ico
+
+    # Redireciona a URL padrão para sitemaps para o local correto
+    #
+    #RewriteRule ^sitemap-index\.xml$ public/sitemaps/sitemap-index.xml [R=301,L]
+    #RewriteRule ^sitemap\.xml$ public/sitemaps/sitemap-index.xml [R=301,L]
+
+    RewriteRule ^$ public/ [L]
+    RewriteRule (.*) public/$1 [L]
+</IfModule>
