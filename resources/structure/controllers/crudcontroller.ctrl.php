@@ -291,6 +291,7 @@ echo <<<EOF
 	 */
 	protected function beforeCreate( \$object )
     {
+
 EOF;
 
 foreach ($fields as $field) {
@@ -313,6 +314,7 @@ echo <<<EOF
 	 */
 	protected function afterCreate( \$object )
     {
+
 EOF;
         foreach ($fields as $field) {
             if ( $field['type'] == 'checkbox' ) {
@@ -364,6 +366,7 @@ echo <<<EOF
 	 */
 	protected function beforeUpdate( \$object )
     {
+
 EOF;
 
 foreach ($fields as $field) {
@@ -386,6 +389,7 @@ echo <<<EOF
 	 */
 	protected function afterUpdate( \$object )
     {
+
 EOF;
         foreach ($fields as $field) {
             if ( $field['type'] == 'checkbox' ) {
@@ -437,6 +441,7 @@ echo <<<EOF
 	 */
 	protected function afterSave( \$object )
     {
+
 EOF;
 foreach ($fields as $field) {
     if ( $field['type'] == 'cropbox' ) {
@@ -542,5 +547,6 @@ echo <<<EOF
     {
 	}
 }
+
 EOF;
 

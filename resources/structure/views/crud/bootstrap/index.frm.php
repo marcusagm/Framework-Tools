@@ -15,12 +15,13 @@ EOF;
 	<div class="panel-heading"><?php echo '<?php echo $this->title ?>' ?></div>
 	<div class="panel-body">
 <?php echo <<<EOF
-		<?php if( \$this->message ) { ?>
-			<div class="alert alert-warning fade in">
-				<?php echo \$this->message ?>
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			</div>
-		<?php } ?>
+
+        <?php if( \$this->message ) { ?>
+            <div class="alert<?php echo \$this->error ? ' alert-warning' : ' alert-success'?> fade in">
+                <?php echo \$this->message ?>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            </div>
+        <?php } ?>
 
 		<?php
 		\$grid = new DataGrid( '$module' );
