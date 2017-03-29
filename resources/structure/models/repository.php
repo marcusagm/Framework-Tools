@@ -83,7 +83,7 @@ if( is_array( $foreingKeys ) ) {
 	foreach( $foreingKeys as $relation ) {
 		$functionName = $this->camelize( $this->removePrefix( $relation['COLUMN_NAME'] ) );
 		$objectName = $this->camelize( $this->removePrefix( $relation['REFERENCED_TABLE_NAME'] ) );
-		echo "\tpublic function get" . $functionName . "() {\n";
+		echo "\tpublic function get" . $functionName . "()\n\t{\n";
 			echo "\t\treturn new " . $objectName . "( \$this->" . $relation['COLUMN_NAME'] . " );\n";
 		echo "\t}\n\n";
 	}

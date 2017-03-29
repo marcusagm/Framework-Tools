@@ -1,5 +1,5 @@
-SetEnvIfNoCase User-Agent "^libwww-perl*" block_bad_bots
-Deny from env=block_bad_bots
+#SetEnvIfNoCase User-Agent "^libwww-perl*" block_bad_bots
+#Deny from env=block_bad_bots
 
 # [ Configurações de cache ]
 #
@@ -70,8 +70,7 @@ Deny from env=block_bad_bots
     RewriteCond %{REQUEST_FILENAME} !-f
 
     # Segurança
-    RewriteRule ^wp\-.*$ index.php?url= [QSA,L]
-    RewriteRule ^xmlrpc.*$ index.php?url= [QSA,L]
+    #RewriteRule ^xmlrpc.*$ index.php?url= [QSA,L]
 
     RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 </IfModule>

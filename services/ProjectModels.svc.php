@@ -25,6 +25,11 @@ class ProjectModels {
 	private $tablesForeingKeys = array();
 	private $tablesReferencedForeingKeys = array();
 
+    /**
+     * Conexão com o banco de dados.
+     *
+     * @var PDO
+     */
 	private $_conn = false;
 
 	public function __construct( $id )
@@ -55,8 +60,14 @@ class ProjectModels {
 
 	public function connect()
     {
-		$this->_conn = mysql_connect( $this->databaseHost, $this->databaseUsername, $this->databasePassword );
-		mysql_select_db( $this->databaseName, $this->_conn );
+        $options = array( PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8" );
+        $this->_conn = new PDO(
+            'mysql:host=' . $this->databaseHost .
+            ';dbname=' . $this->databaseName,
+            $this->databaseUsername,
+            $this->databasePassword,
+            $options
+        );
 	}
 
 	public function getTables()
@@ -297,70 +308,76 @@ class ProjectModels {
 
 	private function readTables()
     {
-		$sql = mysql_query( 'SHOW TABLES LIKE "' . $this->databasePrefix . '%"', $this->_conn ) or die ( mysql_error() );
-		while( $result = mysql_fetch_array($sql) ) {
-			$this->tables[] = $result[0];
-		}
+        try {
+            $query = 'SHOW TABLES LIKE "' . $this->databasePrefix . '%"';
+            $sql = $this->_conn->query( $query );
+            $this->tables = $sql->fetchAll(PDO::FETCH_COLUMN);
+            $error = $this->_conn->errorInfo();
+			if( $error[0] !== '00000' ) {
+				throw new FwException('Ocorreu um erro ao executar a query: ' .
+									   $query . ' - Erro: ' . $error[2] );
+			}
+        } catch (FwException $e) {
+        }
 	}
 
 	private function readColumns()
     {
-		$tables = $this->getTables();
-		foreach ( $tables as $table ) {
-			$sql = mysql_query('DESCRIBE ' . $table, $this->_conn ) or die ( mysql_error() );
-			$this->tablesColumns[$table] = array();
-			while( $result = mysql_fetch_assoc($sql) ) {
-				$this->tablesColumns[$table][] = $result;
-			}
-		}
+        try {
+            $tables = $this->getTables();
+            foreach ( $tables as $table ) {
+                $sql = $this->_conn->query( 'DESCRIBE ' . $table );
+                $this->tablesColumns[$table] = $sql->fetchAll(PDO::FETCH_ASSOC);
+            }
+        } catch (FwException $e) {
+        }
 	}
 
 	private function readForeingKeys()
     {
-		$tables = $this->getTables();
-		foreach ( $tables as $table ) {
-			$this->tablesForeingKeys[$table] = array();
+        try {
+            $tables = $this->getTables();
+            foreach ( $tables as $table ) {
+                $this->tablesForeingKeys[$table] = array();
 
-			$sql = "SELECT
-					COLUMN_NAME,
-					REFERENCED_TABLE_SCHEMA,
-					REFERENCED_TABLE_NAME,
-					REFERENCED_COLUMN_NAME
-				FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
-				WHERE TABLE_SCHEMA = '" . $this->databaseName . "'
-					AND REFERENCED_TABLE_NAME IS NOT NULL
-					AND TABLE_NAME = '" . $table . "'";
-			$res = mysql_query( $sql, $this->_conn ) or die ( mysql_error() );
-
-			while( $foreingKey = mysql_fetch_assoc( $res ) ) {
-				$this->tablesForeingKeys[$table][] = $foreingKey;
-			}
-		}
+                $sql = "SELECT
+                        COLUMN_NAME,
+                        REFERENCED_TABLE_SCHEMA,
+                        REFERENCED_TABLE_NAME,
+                        REFERENCED_COLUMN_NAME
+                    FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+                    WHERE TABLE_SCHEMA = '" . $this->databaseName . "'
+                        AND REFERENCED_TABLE_NAME IS NOT NULL
+                        AND TABLE_NAME = '" . $table . "'";
+                $res = $this->_conn->query( $sql );
+                $this->tablesForeingKeys[$table] = $res->fetchAll(PDO::FETCH_ASSOC);
+            }
+        } catch (FwException $e) {
+        }
 	}
 
 	private function readReferencedForeingKeys()
     {
-		$tables = $this->getTables();
-		foreach ( $tables as $table ) {
-			$this->tablesReferencedForeingKeys[$table] = array();
+        try {
+            $tables = $this->getTables();
+            foreach ( $tables as $table ) {
+                $this->tablesReferencedForeingKeys[$table] = array();
 
-			$sql = "SELECT
-						TABLE_NAME,
-						COLUMN_NAME,
-						REFERENCED_TABLE_SCHEMA,
-						REFERENCED_TABLE_NAME,
-						REFERENCED_COLUMN_NAME
-					FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
-					WHERE TABLE_SCHEMA = '" . $this->databaseName . "'
-						AND REFERENCED_TABLE_NAME = '" . $table . "'
-						AND TABLE_NAME IS NOT NULL";
-
-			$res = mysql_query( $sql, $this->_conn ) or die ( mysql_error() );
-
-			while( $foreingKey = mysql_fetch_assoc( $res ) ) {
-				$this->tablesReferencedForeingKeys[$table][] = $foreingKey;
-			}
-		}
+                $sql = "SELECT
+                            TABLE_NAME,
+                            COLUMN_NAME,
+                            REFERENCED_TABLE_SCHEMA,
+                            REFERENCED_TABLE_NAME,
+                            REFERENCED_COLUMN_NAME
+                        FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+                        WHERE TABLE_SCHEMA = '" . $this->databaseName . "'
+                            AND REFERENCED_TABLE_NAME = '" . $table . "'
+                            AND TABLE_NAME IS NOT NULL";
+                $res = $this->_conn->query(  $sql );
+                $this->tablesReferencedForeingKeys[$table] = $res->fetchAll(PDO::FETCH_ASSOC);
+            }
+        } catch (FwException $e) {
+        }
 	}
 
 	private function loadModelFile( $table, $asArray = false )
