@@ -70,7 +70,7 @@ $ConfigCore->setAppCharset('utf-8');
 /**
  * URL base da aplicação.
  */
-$ConfigCore->setAppBaseUrl('http://belvedere/frameworktools/');
+$ConfigCore->setAppBaseUrl('http://devserver/frameworktools/');
 
 /**
  * Nome do controle inicial da aplicação.
