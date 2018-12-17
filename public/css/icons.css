@@ -235,13 +235,13 @@ h1 [data-icon]:before {
 	content: "!";
 }
 .ftools-chart-bar:before {
-	content: "\";
+	content: "\\";
 }
 .ftools-clock:before {
 	content: "#";
 }
 .ftools-docs:before {
-	content: "$";
+	content: '$';
 }
 .ftools-down-open:before {
 	content: "%";
