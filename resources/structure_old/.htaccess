@@ -1,0 +1,65 @@
+Options +FollowSymlinks
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Altere a linha abaixo caso o projeto esteja em uma URL composta
+    # Por exemplo:
+    #   Url: http://localhost/projeto/
+    #   A linha abaixo deve ser alterada para
+    #   RewriteBase /projeto
+    #
+    RewriteBase /
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+
+
+    #
+    # Redireciona a URL pardão para favicons para o local correto
+    #
+    #RewriteRule ^favicon\.ico$ images/favicons/favicon.ico
+    #RewriteRule ^favicon\.ico$ images/favicons/favicon.ico [R=301,L]
+    #RewriteRule ^favicon-16x16\.png$ images/favicons/favicon-16x16.png [R=301,L]
+    #RewriteRule ^favicon-32x32\.png$ images/favicons/favicon-32x32.png [R=301,L]
+    #RewriteRule ^favicon-96x96\.png$ images/favicons/favicon-96x96.png [R=301,L]
+
+    #RewriteRule ^android-icon-36x36\.png$ images/favicons/android-icon-36x36.png [R=301,L]
+    #RewriteRule ^android-icon-48x48\.png$ images/favicons/android-icon-48x48.png [R=301,L]
+    #RewriteRule ^android-icon-72x72\.png$ images/favicons/android-icon-72x72.png [R=301,L]
+    #RewriteRule ^android-icon-96x96\.png$ images/favicons/android-icon-96x96.png [R=301,L]
+    #RewriteRule ^android-icon-144x144\.png$ images/favicons/android-icon-144x144.png [R=301,L]
+    #RewriteRule ^android-icon-192x192\.png$ images/favicons/android-icon-192x192.png [R=301,L]
+
+    #RewriteRule ^apple-icon-57x57\.png$ images/favicons/apple-icon-57x57.png [R=301,L]
+    #RewriteRule ^apple-icon-60x60\.png$ images/favicons/apple-icon-60x60.png [R=301,L]
+    #RewriteRule ^apple-icon-72x72\.png$ images/favicons/apple-icon-72x72.png [R=301,L]
+    #RewriteRule ^apple-icon-76x76\.png$ images/favicons/apple-icon-76x76.png [R=301,L]
+    #RewriteRule ^apple-icon-114x114\.png$ images/favicons/apple-icon-114x114.png [R=301,L]
+    #RewriteRule ^apple-icon-120x120\.png$ images/favicons/apple-icon-120x120.png [R=301,L]
+    #RewriteRule ^apple-icon-144x144\.png$ images/favicons/apple-icon-144x144.png [R=301,L]
+    #RewriteRule ^apple-icon-152x152\.png$ images/favicons/apple-icon-152x152.png [R=301,L]
+    #RewriteRule ^apple-icon-180x180\.png$ images/favicons/apple-icon-180x180.png [R=301,L]
+    #RewriteRule ^apple-icon-precomposed\.png$ images/favicons/apple-icon-precomposed.png [R=301,L]
+    #RewriteRule ^apple-icon\.png$ images/favicons/apple-icon.png [R=301,L]
+
+    #RewriteRule ^ms-icon-70x70\.png$ images/favicons/ms-icon-70x70.png [R=301,L]
+    #RewriteRule ^ms-icon-144x144\.png$ images/favicons/ms-icon-144x144.png [R=301,L]
+    #RewriteRule ^ms-icon-150x150\.png$ images/favicons/ms-icon-150x150.png [R=301,L]
+    #RewriteRule ^ms-icon-310x310\.png$ images/favicons/ms-icon-310x310.png [R=301,L]
+
+    #RewriteRule ^manifest\.json$ images/favicons/manifest.json [R=301,L]
+    #RewriteRule ^browserconfig\.xml$ images/favicons/browserconfig.xml [R=301,L]
+
+
+
+    #
+    # Redireciona a URL padrão para sitemaps para o local correto
+    #
+    #RewriteRule ^sitemap-index\.xml$ public/sitemaps/sitemap-index.xml [R=301,L]
+    #RewriteRule ^sitemap\.xml$ public/sitemaps/sitemap-index.xml [R=301,L]
+
+    RewriteRule ^$ public/ [L]
+    RewriteRule (.*) public/$1 [L]
+</IfModule>

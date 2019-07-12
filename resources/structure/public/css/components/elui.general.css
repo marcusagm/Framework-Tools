@@ -1,0 +1,17 @@
+textarea { resize: vertical }
+.input-required-label { color: #d9534f }
+
+
+/**
+ * Formatação do campo de upload
+ */
+.btn-file { position: relative; overflow: hidden; }
+.btn-file input[type=file] { position: absolute; top: 0; right: 0; left: 0; bottom: 0; font-size: 999px; text-align: right; opacity: 0; outline: none; background: white; cursor: inherit; display: block; }
+input.btn-file-name[readonly] { background-color: white !important; cursor: text !important; }
+
+
+/**
+ * Novo crop
+ */
+.img-crop-update-preview { display: block; border: 1px solid #ccc; padding: 5px; margin-top: 5px }
+.img-crop-update-preview .img-thumbnail { margin: 0; padding: 0 }

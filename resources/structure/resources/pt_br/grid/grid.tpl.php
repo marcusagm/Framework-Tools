@@ -10,21 +10,23 @@
 
 <form action="<?php echo $this->getUrlToSearch() ?>" method="post" class="grid_search">
 	<div class="input-group">
-		<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+		<div class="input-group-prepend">
+			<span class="input-group-text"><i class="fas fa-fw fa-search"></i></span>
+		</div>
 		<input type="text" class="form-control" name="query" id="search_query" placeholder="Digite o que procura..." value="<?php echo $this->getFilters() ?>">
 	</div>
-	<button class="hidden" type="submit">Buscar</button>
+	<button class="invisible" type="submit">Buscar</button>
 </form>
 
 
 <form action="<?php echo $this->getUrlToDeleteSelected() ?>" method="post" class="grid_form">
 
 	<?php if( $this->getShowActionAdd() ) { ?>
-		<a href="<?php echo $this->getUrlToAdd() ?>" title="" class="btn btn-primary ajax"><i class="fa fa-plus"></i> Adicionar</a>
+		<a href="<?php echo $this->getUrlToAdd() ?>" title="" class="btn btn-primary ajax"><i class="fas fa-fw fa-plus"></i> Adicionar</a>
 	<?php } ?>
 	<?php if( $this->getShowActionDeleteSelected() ) { ?>
 		<button disabled="disabled" id="grid_button_delete_all" class="btn">
-			<i class="fa fa-times"></i> Excluir
+			<i class="fas fa-fw fa-trash"></i> Excluir
 		</button>
 	<?php } ?>
 
@@ -37,7 +39,7 @@
 				</th>
 				<?php } ?>
 				<?php foreach ( $columns as $column ) { ?>
-					<th scope="col" class="grid_column_field_<?php echo $column['field' ] ?>">
+					<th scope="col">
 						<?php
 							if( $column['sortable'] ) {
 								echo '<a href="' . $this->getUrlToSortByField($column['field']) . '" title="">';
@@ -89,14 +91,14 @@
 								if( $value->$column['field'] != null ) {
 									$modelName = $column['model'];
 									$columnModel = new $modelName( $value->$column['field' ] );
-									echo '<td class="grid_column_field_' . $column['field' ] . '">' . $columnModel . '</td>';
+									echo '<td>' . $columnModel . '</td>';
 								} else {
 									echo '<td>-</td>';
 								}
 							} elseif( count( $column['values'] ) > 0 ) {
-								echo '<td class="grid_column_field_' .$column['field' ] . '">' . $column['values'][ $value->$column['field'] ] . '</td>';
+								echo '<td>' . $column['values'][ $value->$column['field'] ] . '</td>';
 							} else {
-								echo '<td class="grid_column_field_' . $column['field' ] . '">' . $value->$column['field'] . '</td>';
+								echo '<td>' . $value->$column['field'] . '</td>';
 							}
 						}
 					?>
@@ -110,9 +112,9 @@
 							$buttonValues = $button['conditionalsValues'][$value->$button['field']];
 							echo '<td class="grid_column_button grid_column_button_conditions">';
 							if( isset( $buttonValues['module'] ) ) {
-								echo '<a href="' . UrlMaker::toModuleAction( $buttonValues['module'], $buttonValues['controller'], $buttonValues['action'], array( $buttonValues['field'] => ( $buttonValues['field'] ? $value->$buttonValues['field'] : $value->$button['field'] ) ) ) . '" title="" class="btn btn-default btn-sm' . ( $button['ajaxAction'] ? ' grid-ajax-action' : '' ) . '">' . $buttonValues['text'] . '</a>';
+								echo '<a href="' . UrlMaker::toModuleAction( $buttonValues['module'], $buttonValues['controller'], $buttonValues['action'], array( $buttonValues['field'] => ( $buttonValues['field'] ? $value->$buttonValues['field'] : $value->$button['field'] ) ) ) . '" title="" class="btn btn-outline-secondary btn-sm' . ( $button['ajaxAction'] ? ' grid-ajax-action' : '' ) . '">' . $buttonValues['text'] . '</a>';
 							} else {
-								echo '<a href="' . UrlMaker::toAction( $buttonValues['controller'], $buttonValues['action'], array( $buttonValues['field'] => ( $buttonValues['field'] ? $value->$buttonValues['field'] : $value->$button['field'] ) ) ) . '" title="" class="btn btn-default btn-sm' . ( $button['ajaxAction'] ? ' grid-ajax-action' : '' ) . '">' . $buttonValues['text'] . '</a>';
+								echo '<a href="' . UrlMaker::toAction( $buttonValues['controller'], $buttonValues['action'], array( $buttonValues['field'] => ( $buttonValues['field'] ? $value->$buttonValues['field'] : $value->$button['field'] ) ) ) . '" title="" class="btn btn-outline-secondary btn-sm' . ( $button['ajaxAction'] ? ' grid-ajax-action' : '' ) . '">' . $buttonValues['text'] . '</a>';
 							}
 							echo '</td>';
 						}
@@ -123,9 +125,9 @@
 							foreach ( $buttons as $button ) {
 								echo '<td class="grid_column_button">';
 								if( $button['module'] ) {
-									echo '<a href="' . UrlMaker::toModuleAction( $button['module'], $button['controller'], $button['action'], array( $button['field'] => $value->$button['field'] ) ) . '" title="" class="btn btn-default btn-sm' . ( $button['modal'] ? ' ajax' : '' ) . '">' . $button['text'] . '</a>';
+									echo '<a href="' . UrlMaker::toModuleAction( $button['module'], $button['controller'], $button['action'], array( $button['field'] => $value->$button['field'] ) ) . '" title="" class="btn btn-outline-secondary btn-sm' . ( $button['modal'] ? ' ajax' : '' ) . '">' . $button['text'] . '</a>';
 								} else {
-									echo '<a href="' . UrlMaker::toAction( $button['controller'], $button['action'], array( $button['field'] => $value->$button['field'] ) ) . '" title="" class="btn btn-default btn-sm' . ( $button['modal'] ? ' ajax' : '' ) . '">' . $button['text'] . '</a>';
+									echo '<a href="' . UrlMaker::toAction( $button['controller'], $button['action'], array( $button['field'] => $value->$button['field'] ) ) . '" title="" class="btn btn-outline-secondary btn-sm' . ( $button['modal'] ? ' ajax' : '' ) . '">' . $button['text'] . '</a>';
 								}
 								echo '</td>';
 							}
@@ -149,13 +151,13 @@
 					<td class="grid_column_actions">
 						<div class="btn-group">
 							<?php if( $this->getShowActionView() ) { ?>
-								<a href="<?php echo $this->getUrlToView( array( 'id' => $value->id ) ) ?>" title="Visualizar" class="btn btn-default btn-sm grid_button_view ajax"><i class="fa fa-eye"></i></a>
+								<a href="<?php echo $this->getUrlToView( array( 'id' => $value->id ) ) ?>" title="Visualizar" class="btn btn-outline-secondary btn-sm grid_button_view ajax"><i class="fas fa-fw fa-eye"></i></a>
 							<?php } ?>
 							<?php if( $this->getShowActionEdit() ) { ?>
-								<a href="<?php echo $this->getUrlToEdit( array( 'id' => $value->id ) ) ?>" title="Editar" class="btn btn-default btn-sm grid_button_edit ajax"><i class="fa fa-edit"></i></a>
+								<a href="<?php echo $this->getUrlToEdit( array( 'id' => $value->id ) ) ?>" title="Editar" class="btn btn-outline-secondary btn-sm grid_button_edit ajax"><i class="fas fa-fw fa-edit"></i></a>
 							<?php } ?>
 							<?php if( $this->getShowActionDelete() ) { ?>
-								<a href="<?php echo $this->getUrlToDelete( array( 'id' => $value->id ) ) ?>" title="Excluir" class="btn btn-default btn-sm btn-danger grid_button_delete"><i class="fa fa-times"></i></a>
+								<a href="<?php echo $this->getUrlToDelete( array( 'id' => $value->id ) ) ?>" title="Excluir" class="btn btn-sm btn-danger grid_button_delete"><i class="fas fa-fw fa-trash"></i></a>
 							<?php } ?>
 						</div>
 					</td>
@@ -165,7 +167,7 @@
 		</tbody>
 	</table>
 </form>
-<div class="row-fluid">
+<div class="row">
 	<div class="col-md-8">
 		<ul class="pagination">
 			<?php
@@ -196,13 +198,13 @@
 			for( $actualPage = $startLink; $actualPage <= $endLink; $actualPage++ ) {
 				if( $this->getPage() != $actualPage ) {
 			?>
-				<li>
+				<li class="page-item">
 					<a href="<?php echo $this->getUrlToList( array( 'page' => $actualPage, 'sortField' => $this->getSortField(), 'sortOrder' => $this->getSortOrder(), 'limit' => $this->getLimit(), 'filter' => $this->getFilters() ) ) ?>" title="">
 						<?php
 						if ( $page > $middle && $actualPage == $startLink ) {
-							echo '<i class="fa fa-ellipsis-h"></i>';
+							echo '<i class="fas fa-fw fa-ellipsis-h"></i>';
 						} elseif ( $totalPages > $max && $page < ( $totalPages - $middle ) && $actualPage == $endLink ) {
-							echo '<i class="fa fa-ellipsis-h"></i>';
+							echo '<i class="fas fa-fw fa-ellipsis-h"></i>';
 						} else {
 							echo $actualPage;
 						}
@@ -210,7 +212,7 @@
 					</a>
 				</li>
 			<?php } else { ?>
-				<li class="active"><span><?php echo $page ?></span></li>
+				<li class="page-item active"><span class="page-link"><?php echo $page ?><span class="sr-only">(página atual)</span></span></li>
 			<?php } } ?>
 
 		</ul>

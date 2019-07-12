@@ -5,18 +5,18 @@ $ConfigCore = ConfigCore::getInstance();
 /**
  * Define se o debug está ativado e qual o tipo que será utilizado.
  * Utilize os seguintes códigos para cada tipo de debug.
- * 		0: Desabilitado
- * 		1: Exibir na tela abaixo da aplicação.
- * 		2: Emitir relatórios através do Firebug.
+ *         0: Desabilitado
+ *         1: Exibir na tela abaixo da aplicação.
+ *         2: Emitir relatórios através do Firebug.
  */
 $ConfigCore->setDebug(1);
 
 /**
  * Define como os relatórios de erros deverão ser armazenados.
  * Utilize os seguintes códigos para cada tipo de relatório.
- * 		0: Armazenar logs no servidor apenas.
- * 		1: Envia-los apenas para os emails de suporte.
- * 		2: Armazenar logs no servidor e tambem enviar-los para os emails de suporte.
+ *         0: Armazenar logs no servidor apenas.
+ *         1: Envia-los apenas para os emails de suporte.
+ *         2: Armazenar logs no servidor e tambem enviar-los para os emails de suporte.
  */
 $ConfigCore->setReport(0);
 

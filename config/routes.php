@@ -3,11 +3,11 @@
 $ConfigRoutes = ConfigRoutes::getInstance();
 
 $ConfigRoutes->addRoute(
-	'Default',
-	'/:controller/:action/:params'
+    'Default',
+    '/:controller/:action/:params'
 );
 /*
 $ConfigRoutes->addRoute(
-	'DefaultWithLanguage',
-	'/:language/:controller/:action/:params'
+    'DefaultWithLanguage',
+    '/:language/:controller/:action/:params'
 );*/

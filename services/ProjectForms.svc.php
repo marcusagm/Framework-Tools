@@ -14,6 +14,7 @@ class ProjectForms
     private $name;
     private $tabindex = 0;
     private $module;
+    private $moduleGroup;
     private $table;
     private $method = 'post';
     private $enctype = 'application/x-www-form-urlencoded';
@@ -51,6 +52,11 @@ class ProjectForms
         return $this->template;
     }
 
+    public function getModuleGroup()
+    {
+        return $this->moduleGroup;
+    }
+
     public function setName($name)
     {
         $this->name = $name;
@@ -81,6 +87,12 @@ class ProjectForms
         return $this;
     }
 
+    public function setModuleGroup($moduleGroup)
+    {
+        $this->moduleGroup = $moduleGroup;
+        return $this;
+    }
+
     public function addInput($field)
     {
         $tabindex = $this->tabindex;
@@ -96,6 +108,7 @@ class ProjectForms
         }
         $field['original_name'] = $field['name'];
         $field['name'] = $this->table . '_' . $field['name'];
+        $field['camelcase'] = Text::camelize( $field['original_name'] );
 
         // Chama método que irá veirifcar se o campo possui alguma validação
         $this->inputValidate($field);
@@ -148,7 +161,14 @@ class ProjectForms
     {
         $name = $this->name;
         $content = str_replace("\n", "\n\t\t\t", $this->formContent);
-        $action = '<?php echo UrlMaker::toAction( \'' . $this->module . '\', $this->record ? \'update\' : \'create\' ); ?>';
+
+        if ($this->moduleGroup) {
+            $action = '<?php echo UrlMaker::toModuleAction( \'' . $this->moduleGroup . '\', \'' . $this->module . '\', $this->record ? \'update\' : \'create\' ); ?>';
+            $backLink = '<?php echo UrlMaker::toModuleAction( \'' . $this->moduleGroup . '\', \'' . $this->module . '\', \'index\' ); ?>';
+        } else {
+            $action = '<?php echo UrlMaker::toAction( \'' . $this->module . '\', $this->record ? \'update\' : \'create\' ); ?>';
+            $backLink = '<?php echo UrlMaker::toAction( \'' . $this->module . '\', \'index\' ); ?>';
+        }
         $method = $this->method;
         $enctype = $this->enctype;
 
@@ -179,9 +199,7 @@ class ProjectForms
         foreach ($this->fields as $value) {
             $field = $value;
             $field['id'] = $this->table . '_' . $field['name'];
-            $CamelCase = new String($field['name']);
-            $CamelCase->camelize();
-            $field['camelcase'] = $CamelCase->__toString();
+            $field['camelcase'] = Text::camelize( $field['name'] );
             $fields[] = $field;
         }
 

@@ -55,13 +55,14 @@ class {$model}Controller extends CrudController {
 	 * Define o módulo cujo o controller pertence
 	 * @var string
 	 */
-	public \$module = null;
 
 EOF;
 
+echo '    public $module = ' . ($moduleGroup ? '\'' . $moduleGroup . '\'' : 'null') . ';' . "\n";
+
 foreach ($fields as $field) {
     if ( $field['type'] == 'cropbox' ) {
-        echo "\n\tprivate \$old" . $field['camelcase'] . "Name = null;";
+        echo "\n\tprivate \$old" . $field['camelcase'] . "Name = null;\n";
     }
 }
 
@@ -124,6 +125,16 @@ echo <<<EOF
 	 */
 	protected function getRecords( \$filter = array(), \$order = null, \$start = null, \$limit = null )
     {
+
+EOF;
+		
+		foreach ($fields as $field) {
+			if ( $field['name'] == 'deleted_at' ) {
+				echo "\t\t\$filter[] = '`deleted_at` IS NULL';\n";
+			}
+		}
+		
+echo <<<EOF
 		return parent::getRecords( \$filter, \$order, \$start, \$limit );
 	}
 
@@ -137,6 +148,16 @@ echo <<<EOF
 	 */
 	protected function getTotalRecords( \$filter = array() )
     {
+
+EOF;
+		
+		foreach ($fields as $field) {
+			if ( $field['name'] == 'deleted_at' ) {
+				echo "\t\t\$filter[] = '`deleted_at` IS NULL';\n";
+			}
+		}
+		
+echo <<<EOF
 		return parent::getTotalRecords( \$filter );
 	}
 
@@ -296,7 +317,7 @@ EOF;
 
 foreach ($fields as $field) {
     if ( $field['type'] == 'cropbox' ) {
-        echo "\n\t\$this->old" . $field['camelcase'] . "Name = \$object->" . $field['name'] . ";";
+        echo "\t\t\$this->old" . $field['camelcase'] . "Name = \$object->" . $field['name'] . ";\n";
     }
 }
 
@@ -316,29 +337,30 @@ echo <<<EOF
     {
 
 EOF;
-        foreach ($fields as $field) {
-            if ( $field['type'] == 'checkbox' ) {
-                echo "\n\t\t\$object->" . $field['name'] . " = $this->getHttpData('" . $field['id'] . "') ? '1' : '0';\n";
-            }
 
-            if ( $field['type'] == 'date' ) {
-                echo "\n\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
-                echo "\n\t\tif( \$date != '' ) {";
-                    echo "\n\t\t\t\$date = explode( '/', \$date );";
-                    echo "\n\t\t\t\$object->" . $field['id'] . " = date( 'Y-m-d', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] ) );";
-                echo "\n\t\t}\n";
-            }
+foreach ($fields as $field) {
+	if ( $field['type'] == 'checkbox' ) {
+		echo "\t\t\$object->" . $field['name'] . " = \$this->getHttpData('" . $field['id'] . "') ? '1' : '0';\n";
+	}
 
-            if ( $field['type'] == 'datetime' ) {
-                echo "\n\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
-                echo "\n\t\tif( \$date != '' ) {";
-                    echo "\n\t\t\t\$date = explode( ' ', \$date );";
-                    echo "\n\t\t\t\$time = \$date[1]";
-                    echo "\n\t\t\t\$date = explode( '/', \$date[0] );";
-                    echo "\n\t\t\t\$object->" . $field['id'] . " = date( 'Y-m-d H:i:s', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] . ' ' . \$time . ':00' ) );";
-                echo "\n\t\t}\n";
-            }
-        }
+	if ( $field['type'] == 'date' ) {
+		echo "\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
+		echo "\n\t\tif( \$date != '' ) {";
+			echo "\n\t\t\t\$date = explode( '/', \$date );";
+			echo "\n\t\t\t\$object->" . $field['id'] . " = date( 'Y-m-d', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] ) );";
+		echo "\n\t\t}\n";
+	}
+
+	if ( $field['type'] == 'datetime' ) {
+		echo "\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
+		echo "\n\t\tif( \$date != '' ) {";
+			echo "\n\t\t\t\$date = explode( ' ', \$date );";
+			echo "\n\t\t\t\$time = \$date[1]";
+			echo "\n\t\t\t\$date = explode( '/', \$date[0] );";
+			echo "\n\t\t\t\$object->" . $field['id'] . " = date( 'Y-m-d H:i:s', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] . ' ' . \$time . ':00' ) );";
+		echo "\n\t\t}\n";
+	}
+}
 
 echo <<<EOF
 	}
@@ -371,7 +393,7 @@ EOF;
 
 foreach ($fields as $field) {
     if ( $field['type'] == 'cropbox' ) {
-        echo "\n\t\$this->old" . $field['camelcase'] . "Name = \$object->" . $field['name'] . ";\n";
+        echo "\t\t\$this->old" . $field['camelcase'] . "Name = \$object->" . $field['name'] . ";\n";
     }
 }
 
@@ -391,29 +413,30 @@ echo <<<EOF
     {
 
 EOF;
-        foreach ($fields as $field) {
-            if ( $field['type'] == 'checkbox' ) {
-                echo "\n\t\t\$object->" . $field['name'] . " = $this->getHttpData('" . $field['id'] . "') ? '1' : '0';\n";
-            }
 
-            if ( $field['type'] == 'date' ) {
-                echo "\n\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
-                echo "\n\t\tif( \$date != '' ) {";
-                    echo "\n\t\t\t\$date = explode( '/', \$date );";
-                    echo "\n\t\t\t\$object->" . $field['id'] . " = date( 'Y-m-d', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] ) );";
-                echo "\n\t\t}\n";
-            }
+foreach ($fields as $field) {
+	if ( $field['type'] == 'checkbox' ) {
+		echo "\t\t\$object->" . $field['name'] . " = \$this->getHttpData('" . $field['id'] . "') ? '1' : '0';\n";
+	}
 
-            if ( $field['type'] == 'datetime' ) {
-                echo "\n\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
-                echo "\n\t\tif( \$date != '' ) {";
-                    echo "\n\t\t\t\$date = explode( ' ', \$date );";
-                    echo "\n\t\t\t\$time = \$date[1]";
-                    echo "\n\t\t\t\$date = explode( '/', \$date[0] );";
-                    echo "\n\t\t\t\$object->" . $field['id'] . " = date( 'Y-m-d H:i:s', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] . ' ' . \$time . ':00' ) );";
-                echo "\n\t\t}\n";
-            }
-        }
+	if ( $field['type'] == 'date' ) {
+		echo "\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
+		echo "\n\t\tif( \$date != '' ) {";
+			echo "\n\t\t\t\$date = explode( '/', \$date );";
+			echo "\n\t\t\t\$object->" . $field['name'] . " = date( 'Y-m-d', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] ) );";
+		echo "\n\t\t}\n";
+	}
+
+	if ( $field['type'] == 'datetime' ) {
+		echo "\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
+		echo "\n\t\tif( \$date != '' ) {";
+			echo "\n\t\t\t\$date = explode( ' ', \$date );";
+			echo "\n\t\t\t\$time = \$date[1]";
+			echo "\n\t\t\t\$date = explode( '/', \$date[0] );";
+			echo "\n\t\t\t\$object->" . $field['name'] . " = date( 'Y-m-d H:i:s', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] . ' ' . \$time . ':00' ) );";
+		echo "\n\t\t}\n";
+	}
+}
 
 echo <<<EOF
 	}
@@ -443,6 +466,7 @@ echo <<<EOF
     {
 
 EOF;
+
 foreach ($fields as $field) {
     if ( $field['type'] == 'cropbox' ) {
         echo "
@@ -451,20 +475,20 @@ foreach ($fields as $field) {
         \$photoData = \$this->getHttpData('" . $field['id'] . "_data');
         \$uri = substr(\$photoData, strpos(\$photoData, ',') + 1);
         if (\$photo['error'] === UPLOAD_ERR_OK) {
-            \$path = \$object->getPhotoDirUpload();
+            \$path = \$object->get" . $field['camelcase'] . "DirUpload();
             \$oldFile = \$path . \$this->old" . $field['camelcase'] . "Name;
 
             if (file_exists(\$path) === false) {
                 mkdir(\$path, 0775, true);
             }
-            \$fileName = md5(time()) . '.jpg';
+            \$fileName = md5(time() . '" . $field['id'] . "') . '.jpg';
             file_put_contents(\$path . \$fileName, base64_decode(\$uri));
             \$object->" . $field['name'] . " = \$fileName;
             \$object->save();
             unlink(\$oldFile);
         }
         if (\$this->getHttpData('user_photo_remove') == '1') {
-            \$path = \$object->getPhotoDirUpload();
+            \$path = \$object->get" . $field['camelcase'] . "DirUpload();
             unlink(\$path . \$this->old" . $field['camelcase'] . "Name);
 
             \$object->" . $field['name'] . " = null;
@@ -472,12 +496,13 @@ foreach ($fields as $field) {
         }
 
         ";
-    }
+	}
+
     if ( $field['type'] == 'file' ) {
-        echo "\n\t\t\$file = \$_FILES['" . $field['id'] . "']";
+        echo "\t\t\$file = \$_FILES['" . $field['id'] . "'];";
         echo "\n\t\tif (\$file['error'] === UPLOAD_ERR_OK) {";
             echo "\n\t\t\t\$ext = pathinfo(\$file['name'], PATHINFO_EXTENSION);";
-            echo "\n\t\t\t\$fileName = md5(time()) . '.' . \$ext;";
+            echo "\n\t\t\t\$fileName = md5(time() . '" . $field['id'] . "') . '.' . \$ext;";
             echo "\n\t\t\t\$path = \$object->get" . $field['camelcase'] . "DirUpload();";
             echo "\n\t\t\tif (file_exists(\$path) === false) {";
                 echo "\n\t\t\t\tmkdir(\$path, 0775, true);";
@@ -488,7 +513,7 @@ foreach ($fields as $field) {
             echo "\n\t\t\t);";
             echo "\n\t\t\t\$object->" . $field['name'] . " = \$fileName;";
             echo "\n\t\t\t\$object->save();";
-        echo "\n\t\t}\n";
+		echo "\n\t\t}\n\n";
     }
 }
 

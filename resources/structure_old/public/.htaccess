@@ -1,0 +1,76 @@
+#SetEnvIfNoCase User-Agent "^libwww-perl*" block_bad_bots
+#Deny from env=block_bad_bots
+
+# [ Configurações de cache ]
+#
+# As linhas abaixo são para otimizar a utlização de cache por imagens, css e
+# arquivos javascripts. Descomente e altere de acordo com suas necessidades.
+#
+# Não é recomendado a utilização em ambiente de desenvolvimento e teste,
+# apenas produção.
+#
+
+#<IfModule mod_headers.c>
+#    # Set XSS Protection header
+#    #Header set X-XSS-Protection "1; mode=block"
+#
+#    # 1 Ano
+#    <FilesMatch "\.(ico|pdf|flv)$">
+#       Header set Cache-Control "max-age=29030400, public"
+#    </FilesMatch>
+#
+#    # 1 semana
+#    <FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+#       Header set Cache-Control "max-age=604800, public"
+#    </FilesMatch>
+#
+#    # 2 dias
+#    <FilesMatch "\.(xml|txt|css|js)$">
+#       Header set Cache-Control "max-age=172800, proxy-revalidate"
+#    </FilesMatch>
+#</IfModule>
+#
+#<ifmodule mod_expires.c>
+#    ExpiresByType image/jpg "modification plus 1 year"
+#    ExpiresByType image/jpeg "modification plus 1 year"
+#    ExpiresByType image/gif "modification plus 1 year"
+#    ExpiresByType image/png "modification plus 1 year"
+#    ExpiresByType image/svg+xm "modification plus 1 year"
+#    ExpiresByType text/css "modification plus 1 month"
+#    ExpiresByType application/pdf "modification plus 1 month"
+#    ExpiresByType text/x-javascript "modification plus 1 month"
+#    ExpiresByType application/x-shockwave-flash "modification plus 1 month"
+#    ExpiresByType image/x-icon "modification plus 1 year"
+#    ExpiresByType application/javascript "access plus 1 month"
+#
+#	<Filesmatch "\.(jpg|jpeg|png|gif|svg|js|css|swf|ico|woff|mp3)$">
+#    	ExpiresActive on
+#        FileETag MTime Size
+#    	ExpiresDefault "modification plus 2 years"
+#	</Filesmatch>
+#
+#    <Filesmatch "layout_script_.*\.php$">
+#        ExpiresActive on
+#        ExpiresDefault "modification plus 2 years"
+#    </Filesmatch>
+#
+#    <Files "layout_css_.*\.php$">
+#    	ExpiresActive on
+#    	ExpiresDefault "modification plus 2 years"
+#	</Files>
+#</ifmodule>
+
+#
+# [ Fim das configurações de cache ]
+#
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+    # Segurança
+    #RewriteRule ^xmlrpc.*$ index.php?url= [QSA,L]
+
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>

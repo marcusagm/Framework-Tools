@@ -1,64 +1,69 @@
 Options +FollowSymlinks
-
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Altere a linha abaixo caso o projeto esteja em uma URL composta
-    # Por exemplo:
-    #   Url: http://localhost/projeto/
-    #   A linha abaixo deve ser alterada para
-    #   RewriteBase /projeto
-    #
+    # Configuração usada quando o projeto esta dentro de uma pasta de um domínio
+    # Exemplo: dominio.com/base
     RewriteBase /
 
+    # Usado para redirecionar acesso por URLs de versões de sites diferentes,
+    # que utilizam a links por Ajax, como o Wix.
+    #RewriteCond %{QUERY_STRING} _escaped_fragment_=([^&]*)
+    #RewriteRule ^$ /%1? [R,L,NE]
+
+    # Redirecionamento para arquivos existentes
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
 
+    # Redirecionamento para os sitemaps
+    RewriteRule ^sitemap-index\.xml$ public/sitemaps/sitemap-index.xml [R=301,L]
+    RewriteRule ^sitemap\.xml$ public/sitemaps/sitemap-index.xml [R=301,L]
 
+    # Redirecionamento para o favicons
+    RewriteRule ^favicon\.ico$ public/images/favicons/favicon.ico [R=301,L]
+    RewriteRule ^favicon-16x16\.png$ public/images/favicons/favicon-16x16.png [R=301,L]
+    RewriteRule ^favicon-32x32\.png$ public/images/favicons/favicon-32x32.png [R=301,L]
+    RewriteRule ^favicon-96x96\.png$ public/images/favicons/favicon-96x96.png [R=301,L]
 
-    #
-    # Redireciona a URL pardão para favicons para o local correto
-    #
-    #RewriteRule ^favicon\.ico$ images/favicons/favicon.ico
-    #RewriteRule ^favicon\.ico$ images/favicons/favicon.ico [R=301,L]
-    #RewriteRule ^favicon-16x16\.png$ images/favicons/favicon-16x16.png [R=301,L]
-    #RewriteRule ^favicon-32x32\.png$ images/favicons/favicon-32x32.png [R=301,L]
-    #RewriteRule ^favicon-96x96\.png$ images/favicons/favicon-96x96.png [R=301,L]
+    RewriteRule ^android-icon-36x36\.png$ public/images/favicons/android-chrome-36x36.png [R=301,L]
+    RewriteRule ^android-icon-48x48\.png$ public/images/favicons/android-chrome-48x48.png [R=301,L]
+    RewriteRule ^android-icon-72x72\.png$ public/images/favicons/android-chrome-72x72.png [R=301,L]
+    RewriteRule ^android-icon-96x96\.png$ public/images/favicons/android-chrome-96x96.png [R=301,L]
+    RewriteRule ^android-icon-144x144\.png$ public/images/favicons/android-chrome-144x144.png [R=301,L]
+    RewriteRule ^android-icon-192x192\.png$ public/images/favicons/android-chrome-192x192.png [R=301,L]
+    RewriteRule ^android-icon-256x256\.png$ public/images/favicons/android-chrome-256x256.png [R=301,L]
+    RewriteRule ^android-icon-384x384\.png$ public/images/favicons/android-chrome-384x384.png [R=301,L]
+    RewriteRule ^android-icon-512x512\.png$ public/images/favicons/android-chrome-512x512.png [R=301,L]
 
-    #RewriteRule ^android-icon-36x36\.png$ images/favicons/android-icon-36x36.png [R=301,L]
-    #RewriteRule ^android-icon-48x48\.png$ images/favicons/android-icon-48x48.png [R=301,L]
-    #RewriteRule ^android-icon-72x72\.png$ images/favicons/android-icon-72x72.png [R=301,L]
-    #RewriteRule ^android-icon-96x96\.png$ images/favicons/android-icon-96x96.png [R=301,L]
-    #RewriteRule ^android-icon-144x144\.png$ images/favicons/android-icon-144x144.png [R=301,L]
-    #RewriteRule ^android-icon-192x192\.png$ images/favicons/android-icon-192x192.png [R=301,L]
+    RewriteRule ^apple-icon-57x57\.png$ public/images/favicons/apple-touch-icon-57x57.png [R=301,L]
+    RewriteRule ^apple-icon-57x57-precomposed\.png$ public/images/favicons/apple-touch-icon-57x57-precomposed.png [R=301,L]
+    RewriteRule ^apple-icon-60x60\.png$ public/images/favicons/apple-touch-icon-60x60.png [R=301,L]
+    RewriteRule ^apple-icon-60x60-precomposed\.png$ public/images/favicons/apple-touch-icon-60x60-precomposed.png [R=301,L]
+    RewriteRule ^apple-icon-72x72\.png$ public/images/favicons/apple-touch-icon-72x72.png [R=301,L]
+    RewriteRule ^apple-icon-72x72-precomposed\.png$ public/images/favicons/apple-touch-icon-72x72-precomposed.png [R=301,L]
+    RewriteRule ^apple-icon-76x76\.png$ public/images/favicons/apple-touch-icon-76x76.png [R=301,L]
+    RewriteRule ^apple-icon-76x76-precomposed\.png$ public/images/favicons/apple-touch-icon-76x76-precomposed.png [R=301,L]
+    RewriteRule ^apple-icon-114x114\.png$ public/images/favicons/apple-touch-icon-114x114.png [R=301,L]
+    RewriteRule ^apple-icon-114x114-precomposed\.png$ public/images/favicons/apple-touch-icon-114x114-precomposed.png [R=301,L]
+    RewriteRule ^apple-icon-120x120\.png$ public/images/favicons/apple-touch-icon-120x120.png [R=301,L]
+    RewriteRule ^apple-icon-120x120-precomposed\.png$ public/images/favicons/apple-touch-icon-120x120-precomposed.png [R=301,L]
+    RewriteRule ^apple-icon-144x144\.png$ public/images/favicons/apple-touch-icon-144x144.png [R=301,L]
+    RewriteRule ^apple-icon-144x144-precomposed\.png$ public/images/favicons/apple-touch-icon-144x144-precomposed.png [R=301,L]
+    RewriteRule ^apple-icon-152x152\.png$ public/images/favicons/apple-touch-icon-152x152.png [R=301,L]
+    RewriteRule ^apple-icon-152x152-precomposed\.png$ public/images/favicons/apple-touch-icon-152x152-precomposed.png [R=301,L]
+    RewriteRule ^apple-icon-180x180\.png$ public/images/favicons/apple-touch-icon-180x180.png [R=301,L]
+    RewriteRule ^apple-icon-180x180-precomposed\.png$ public/images/favicons/apple-touch-icon-180x180-precomposed.png [R=301,L]
+    RewriteRule ^apple-icon\.png$ public/images/favicons/apple-touch-icon.png [R=301,L]
+    RewriteRule ^apple-icon-precomposed\.png$ public/images/favicons/apple-touch-icon-precomposed.png [R=301,L]
 
-    #RewriteRule ^apple-icon-57x57\.png$ images/favicons/apple-icon-57x57.png [R=301,L]
-    #RewriteRule ^apple-icon-60x60\.png$ images/favicons/apple-icon-60x60.png [R=301,L]
-    #RewriteRule ^apple-icon-72x72\.png$ images/favicons/apple-icon-72x72.png [R=301,L]
-    #RewriteRule ^apple-icon-76x76\.png$ images/favicons/apple-icon-76x76.png [R=301,L]
-    #RewriteRule ^apple-icon-114x114\.png$ images/favicons/apple-icon-114x114.png [R=301,L]
-    #RewriteRule ^apple-icon-120x120\.png$ images/favicons/apple-icon-120x120.png [R=301,L]
-    #RewriteRule ^apple-icon-144x144\.png$ images/favicons/apple-icon-144x144.png [R=301,L]
-    #RewriteRule ^apple-icon-152x152\.png$ images/favicons/apple-icon-152x152.png [R=301,L]
-    #RewriteRule ^apple-icon-180x180\.png$ images/favicons/apple-icon-180x180.png [R=301,L]
-    #RewriteRule ^apple-icon-precomposed\.png$ images/favicons/apple-icon-precomposed.png [R=301,L]
-    #RewriteRule ^apple-icon\.png$ images/favicons/apple-icon.png [R=301,L]
+    RewriteRule ^ms-icon-70x70\.png$ public/images/favicons/ms-icon-70x70.png [R=301,L]
+    RewriteRule ^ms-icon-144x144\.png$ public/images/favicons/ms-icon-144x144.png [R=301,L]
+    RewriteRule ^ms-icon-150x150\.png$ public/images/favicons/ms-icon-150x150.png [R=301,L]
+    RewriteRule ^ms-icon-310x310\.png$ public/images/favicons/ms-icon-310x310.png [R=301,L]
 
-    #RewriteRule ^ms-icon-70x70\.png$ images/favicons/ms-icon-70x70.png [R=301,L]
-    #RewriteRule ^ms-icon-144x144\.png$ images/favicons/ms-icon-144x144.png [R=301,L]
-    #RewriteRule ^ms-icon-150x150\.png$ images/favicons/ms-icon-150x150.png [R=301,L]
-    #RewriteRule ^ms-icon-310x310\.png$ images/favicons/ms-icon-310x310.png [R=301,L]
+    RewriteRule ^manifest\.json$ public/images/favicons/manifest.json [R=301,L]
+    RewriteRule ^browserconfig\.xml$ public/images/favicons/browserconfig.xml [R=301,L]
 
-    #RewriteRule ^manifest\.json$ images/favicons/manifest.json [R=301,L]
-    #RewriteRule ^browserconfig\.xml$ images/favicons/browserconfig.xml [R=301,L]
-
-
-
-    #
-    # Redireciona a URL padrão para sitemaps para o local correto
-    #
-    #RewriteRule ^sitemap-index\.xml$ public/sitemaps/sitemap-index.xml [R=301,L]
-    #RewriteRule ^sitemap\.xml$ public/sitemaps/sitemap-index.xml [R=301,L]
 
     RewriteRule ^$ public/ [L]
     RewriteRule (.*) public/$1 [L]
