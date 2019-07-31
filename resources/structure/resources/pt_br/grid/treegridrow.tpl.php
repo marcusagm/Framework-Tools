@@ -15,7 +15,7 @@ foreach ( $records as $record ) {
 		<?php
 			foreach ( $columns as $column ) {
 				if( $column['model'] !== null ) {
-					if( $value->$column['field'] != null ) {
+					if( $value->{$column['field']} != null ) {
 						$modelName = $column['model'];
 						$columnModel = new $modelName( $value->$column['field' ] );
 						echo '<td>' . $columnModel . '</td>';
@@ -23,36 +23,36 @@ foreach ( $records as $record ) {
 						echo '<td>-</td>';
 					}
 				} elseif( count( $column['values'] ) > 0 ) {
-					echo '<td>' . $column['values'][ $value->$column['field'] ] . '</td>';
+					echo '<td>' . $column['values'][ $value->{$column['field']} ] . '</td>';
 				} else {
-					echo '<td>' . $value->$column['field'] . '</td>';
+					echo '<td>' . $value->{$column['field']} . '</td>';
 				}
 			}
 		?>
 		<?php foreach ( $methods as $method ) { ?>
 			<td class="grid_column_method">
-				<?php echo $value->$method['method'](); ?>
+				<?php echo $value->{$method['method']}(); ?>
 			</td>
 		<?php } ?>
 		<?php
 			foreach ( $buttons as $button ) {
 				echo '<td class="grid_column_button">';
 				if( $button['module'] ) {
-					echo '<a href="' . UrlMaker::toModuleAction( $button['module'], $button['controller'], $button['action'], array( $button['field'] => $value->$button['field'] ) ) . '" title="" class="btn btn-default btn-sm">' . $button['text'] . '</a>';
+					echo '<a href="' . UrlMaker::toModuleAction( $button['module'], $button['controller'], $button['action'], array( $button['field'] => $value->{$button['field']} ) ) . '" title="" class="btn btn-default btn-sm">' . $button['text'] . '</a>';
 				} else {
-					echo '<a href="' . UrlMaker::toAction( $button['controller'], $button['action'], array( $button['field'] => $value->$button['field'] ) ) . '" title="" class="btn btn-default btn-sm">' . $button['text'] . '</a>';
+					echo '<a href="' . UrlMaker::toAction( $button['controller'], $button['action'], array( $button['field'] => $value->{$button['field']} ) ) . '" title="" class="btn btn-default btn-sm">' . $button['text'] . '</a>';
 				}
 				echo '</td>';
 			}
 		?>
 		<?php
 			foreach ( $buttonsConditionals as $button ) {
-				$buttonValues = $button['conditionalsValues'][$value->$button['field']];
+				$buttonValues = $button['conditionalsValues'][$value->{$button['field']}];
 				echo '<td class="grid_column_button grid_column_button_conditions">';
 				if( $buttonValues['module'] ) {
-					echo '<a href="' . UrlMaker::toModuleAction( $buttonValues['module'], $buttonValues['controller'], $buttonValues['action'], array( $buttonValues['field'] => ( $buttonValues['field'] ? $value->$buttonValues['field'] : $value->$button['field'] ) ) ) . '" title="" class="btn btn-default btn-sm' . ( $button['ajaxAction'] ? ' grid-ajax-action' : '' ) . '">' . $buttonValues['text'] . '</a>';
+					echo '<a href="' . UrlMaker::toModuleAction( $buttonValues['module'], $buttonValues['controller'], $buttonValues['action'], array( $buttonValues['field'] => ( $buttonValues['field'] ? $value->$buttonValues['field'] : $value->{$button['field']} ) ) ) . '" title="" class="btn btn-default btn-sm' . ( $button['ajaxAction'] ? ' grid-ajax-action' : '' ) . '">' . $buttonValues['text'] . '</a>';
 				} else {
-					echo '<a href="' . UrlMaker::toAction( $buttonValues['controller'], $buttonValues['action'], array( $buttonValues['field'] => ( $buttonValues['field'] ? $value->$buttonValues['field'] : $value->$button['field'] ) ) ) . '" title="" class="btn btn-default btn-sm' . ( $button['ajaxAction'] ? ' grid-ajax-action' : '' ) . '">' . $buttonValues['text'] . '</a>';
+					echo '<a href="' . UrlMaker::toAction( $buttonValues['controller'], $buttonValues['action'], array( $buttonValues['field'] => ( $buttonValues['field'] ? $value->$buttonValues['field'] : $value->{$button['field']} ) ) ) . '" title="" class="btn btn-default btn-sm' . ( $button['ajaxAction'] ? ' grid-ajax-action' : '' ) . '">' . $buttonValues['text'] . '</a>';
 				}
 				echo '</td>';
 			}
