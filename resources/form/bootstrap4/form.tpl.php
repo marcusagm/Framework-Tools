@@ -1,4 +1,4 @@
-<form action="<?php echo $action ?>" method="<?php echo $method ?>"<?php $this->enctype ? ' enctype="' . $this->enctype . '"' : '' ?> name="<?php echo $name ?>" id="<?php echo $name ?>" class="form-horizontal"  enctype="multipart/form-data">
+<form action="<?php echo $action ?>" method="<?php echo $method ?>"<?php $this->enctype ? ' enctype="' . $this->enctype . '"' : '' ?> name="<?php echo $name ?>" id="<?php echo $name ?>" class="form-horizontal" enctype="multipart/form-data">
 	<div class="card">
 		<div class="card-header"><?php echo '<?php echo $this->title ?>' ?></div>
 		<div class="card-body">

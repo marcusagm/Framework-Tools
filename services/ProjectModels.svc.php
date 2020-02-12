@@ -407,13 +407,13 @@ class ProjectModels {
     private function removePrefix( $text )
     {
         $prefix = array(
-            $this->databasePrefix . '_',
             '_id',
             'fk_'
         );
         if ( $this->databasePrefix != '' ) {
-            return str_replace( $prefix, '', $text );
+            $prefix[] = $this->databasePrefix . '_';
         }
+        return str_replace( $prefix, '', $text );
         return $text;
     }
 }

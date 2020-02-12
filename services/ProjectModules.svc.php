@@ -67,8 +67,8 @@ class ProjectModules {
 
     public function getModuleName( $model )
     {
-        $module = Text::toLower($model);
-        return $module->__toString();
+        return Text::toLower($model);
+        // return $module->__toString();
     }
 
     public function getTemplate()

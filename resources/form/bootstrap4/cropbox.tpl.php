@@ -9,7 +9,7 @@
                     Alterar imagem
                 </button>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input class="custom-control-input" type="checkbox" name="<?php echo $field['name'] ?>_remove" id="<?php echo $field['name'] ?>_remove" value="1">
+                    <input class="custom-control-input" type="checkbox" name="<?php echo $field['name'] ?>_remove" id="<?php echo $field['name'] ?>_remove" value="1" accept="image/gif, image/jpeg, image/png">
                     <label class="custom-control-label" for="<?php echo $field['name'] ?>_remove">Remover imagem</label>
                 </div>
                 <div class="img-crop-update-preview">
@@ -21,6 +21,6 @@
             <input type="file" class="crop-input-file" id="<?php echo $field['name'] ?>" name="<?php echo $field['name'] ?>">
             <label class="invalid-feedback error" for="<?php echo $field['name'] ?>"></label>
         <?php echo '<?php } ?>' ?>
-        
+
     </div>
 </div>
