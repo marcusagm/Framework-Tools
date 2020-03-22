@@ -3,7 +3,7 @@
 	<div class="col-md-8">
         <?php echo '<?php if ($this->record && $this->record->' . $field['original_name'] . ') { ?>' ?>
 
-        <p><a href="<?php echo '<?php echo $this->record->get' . $field['camelcase'] . 'Url() ?>' ?>" class="btn btn-outline-secondary btn-block" target="_blank"><i class="fas fa-download"></i> Download</a></p>
+        <p><a href="<?php echo '<?php echo $this->record->get' . $field['camelcase'] . 'Url() ?>' ?>" class="btn btn-default btn-block" target="_blank"><i class="fa fa-download"></i> Download</a></p>
         <div class="checkbox">
             <label for="<?php echo $field['name'] ?>_new_file">
                 <input type="checkbox" class="custom-control-input upload-checkbox-new-file" id="<?php echo $field['name'] ?>_new_file">

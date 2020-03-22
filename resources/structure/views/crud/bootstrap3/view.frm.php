@@ -44,8 +44,14 @@ EOF;
 	</div>
 
 	<div class="panel-footer text-right">
-		<a href="<?php echo '<?php echo UrlMaker::toAction( \'' , $module , '\', \'index\' ) ?>' ?>" title="" class="btn btn-link">Voltar</a>
-		<a href="<?php echo '<?php echo UrlMaker::toAction( \'' , $module , '\', \'edit\', array( \'id\' => $this->record->id ) ) ?>' ?>" title="" class="btn btn-default">Editar</a>
-		<a href="<?php echo '<?php echo UrlMaker::toAction( \'' , $module , '\', \'delete\', array( \'id\' => $this->record->id ) ) ?>' ?>" title="" class="btn btn-danger">Excluir</a>
+        <?php if ($moduleGroup) { ?>
+            <a href="<?php echo '<?php echo UrlMaker::toModuleAction(\'' , $moduleGroup , '\', \'' , $module , '\', \'index\' ) ?>' ?>" title="" class="btn btn-link">Voltar</a>
+            <a href="<?php echo '<?php echo UrlMaker::toModuleAction(\'' , $moduleGroup , '\', \'' , $module , '\', \'edit\', array( \'id\' => $this->record->id ) ) ?>' ?>" title="" class="btn btn-default">Editar</a>
+            <a href="<?php echo '<?php echo UrlMaker::toModuleAction(\'' , $moduleGroup , '\', \'' , $module , '\', \'delete\', array( \'id\' => $this->record->id ) ) ?>' ?>" title="" class="btn btn-danger">Excluir</a>
+        <?php } else { ?>
+            <a href="<?php echo '<?php echo UrlMaker::toAction( \'' , $module , '\', \'index\' ) ?>' ?>" title="" class="btn btn-link">Voltar</a>
+            <a href="<?php echo '<?php echo UrlMaker::toAction( \'' , $module , '\', \'edit\', array( \'id\' => $this->record->id ) ) ?>' ?>" title="" class="btn btn-default">Editar</a>
+            <a href="<?php echo '<?php echo UrlMaker::toAction( \'' , $module , '\', \'delete\', array( \'id\' => $this->record->id ) ) ?>' ?>" title="" class="btn btn-danger">Excluir</a>
+        <?php } ?>
 	</div>
 </div>

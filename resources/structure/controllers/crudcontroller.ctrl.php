@@ -127,13 +127,13 @@ echo <<<EOF
     {
 
 EOF;
-		
+
 		foreach ($fields as $field) {
 			if ( $field['name'] == 'deleted_at' ) {
 				echo "\t\t\$filter[] = '`deleted_at` IS NULL';\n";
 			}
 		}
-		
+
 echo <<<EOF
 		return parent::getRecords( \$filter, \$order, \$start, \$limit );
 	}
@@ -150,13 +150,13 @@ echo <<<EOF
     {
 
 EOF;
-		
+
 		foreach ($fields as $field) {
 			if ( $field['name'] == 'deleted_at' ) {
 				echo "\t\t\$filter[] = '`deleted_at` IS NULL';\n";
 			}
 		}
-		
+
 echo <<<EOF
 		return parent::getTotalRecords( \$filter );
 	}
@@ -499,7 +499,7 @@ foreach ($fields as $field) {
 	}
 
     if ( $field['type'] == 'file' ) {
-        echo "\t\t\$file = \$_FILES['" . $field['id'] . "'];";
+        echo "\t\t\$file = \$_FILES['" . $field['id'] . "_file'];";
         echo "\n\t\tif (\$file['error'] === UPLOAD_ERR_OK) {";
             echo "\n\t\t\t\$ext = pathinfo(\$file['name'], PATHINFO_EXTENSION);";
             echo "\n\t\t\t\$fileName = md5(time() . '" . $field['id'] . "') . '.' . \$ext;";

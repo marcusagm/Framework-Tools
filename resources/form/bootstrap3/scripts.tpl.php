@@ -42,6 +42,7 @@ $(document).ready( function() {
     });
 
     <?php
+    $hasFile = false;
     foreach ($fields as $field) {
     if ($field['type'] == 'date') {
     echo "
@@ -117,11 +118,11 @@ $(document).ready( function() {
     $(document).on('change', '.upload-checkbox-new-file', function () {
         var me = $(this);
         if($(this).is(':checked')) {
-            me.parent().parent().children('.upload-input-file').removeClass('invisible');
-            me.parent().parent().find('.upload-input-file input[type=file]').prop('disabled', false);
+            me.parent().parent().parent().children('.upload-input-file').removeClass('invisible');
+            me.parent().parent().parent().find('.upload-input-file input[type=file]').prop('disabled', false);
         } else {
-            me.parent().parent().children('.upload-input-file').addClass('invisible');
-            me.parent().parent().find('.upload-input-file input[type=file]').prop('disabled', true);
+            me.parent().parent().parent().children('.upload-input-file').addClass('invisible');
+            me.parent().parent().parent().find('.upload-input-file input[type=file]').prop('disabled', true);
         }
     });
     ";

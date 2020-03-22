@@ -24,7 +24,17 @@ EOF;
         <?php } ?>
 
 		<?php
-		\$grid = new DataGrid( '$module' );
+
+EOF;
+
+
+if ($moduleGroup ) {
+    echo '        $grid = new DataGrid( \'' . $module . '\', \'' . $moduleGroup . '\' );' . "\n";
+} else {
+    echo '        $grid = new DataGrid( \'' . $module . '\' );' . "\n";
+}
+
+echo <<<EOF
 		// Caso queira usar outro template para grid indique na linha abaixo
 		\$grid->setTemplate( SYSROOT . 'resources/pt_br/grid/grid.tpl.php');
 		// Seta a página atual da grid

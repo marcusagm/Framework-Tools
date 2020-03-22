@@ -9,8 +9,12 @@ echo <<<EOF
 ?>
 
 EOF;
-?>
-<?php echo '<?php $this->layout->addViewJs( \'' . $module . '_form.js\' ); ?>'; ?>
 
-<?php echo $formContent ?>
+if ($moduleGroup) {
+    echo '<?php $this->layout->addViewJs( \'' . $moduleGroup . '/' . $module . '_form.js\' ); ?>' . "\n";
+} else {
+    echo '<?php $this->layout->addViewJs( \'' . $module . '_form.js\' ); ?>' . "\n";
+}
+
+echo $formContent;
 
