@@ -17,7 +17,7 @@ EOF;
 <?php echo <<<EOF
 
         <?php if( \$this->message ) { ?>
-            <div class="alert<?php echo \$this->error ? ' alert-warning' : ' alert-success'?> fade in">
+            <div class="alert<?php echo \$this->error ? ' alert-warning' : ' alert-success'?> fade show">
                 <?php echo \$this->message ?>
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             </div>
@@ -36,7 +36,7 @@ if ($moduleGroup ) {
 
 echo <<<EOF
         // Caso queira usar outro template para grid indique na linha abaixo
-        \$grid->setTemplate( SYSROOT . 'resources/pt_br/grid/grid.tpl.php');
+        \$grid->setTemplate( SYSROOT . 'resources/pt_br/grid/gridnomodal.tpl.php');
         // Seta a página atual da grid
         \$grid->setPage( \$this->paginationPage );
         // Seta o limite de registro por página

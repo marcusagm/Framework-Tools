@@ -90,7 +90,7 @@
 							if( $column['model'] !== null ) {
 								if( $value->{$column['field']} != null ) {
 									$modelName = $column['model'];
-									$columnModel = new $modelName( $value->$column['field' ] );
+									$columnModel = new $modelName( $value->{$column['field' ]} );
 									echo '<td>' . $columnModel . '</td>';
 								} else {
 									echo '<td>-</td>';
@@ -112,9 +112,9 @@
 							$buttonValues = $button['conditionalsValues'][$value->{$button['field']}];
 							echo '<td class="grid_column_button grid_column_button_conditions">';
 							if( isset( $buttonValues['module'] ) ) {
-								echo '<a href="' . UrlMaker::toModuleAction( $buttonValues['module'], $buttonValues['controller'], $buttonValues['action'], array( $buttonValues['field'] => ( $buttonValues['field'] ? $value->$buttonValues['field'] : $value->{$button['field']} ) ) ) . '" title="" class="btn btn-outline-secondary btn-sm' . ( $button['ajaxAction'] ? ' grid-ajax-action' : '' ) . '">' . $buttonValues['text'] . '</a>';
+								echo '<a href="' . UrlMaker::toModuleAction( $buttonValues['module'], $buttonValues['controller'], $buttonValues['action'], array( $buttonValues['field'] => ( $buttonValues['field'] ? $value->{$buttonValues['field']} : $value->{$button['field']} ) ) ) . '" title="" class="btn btn-outline-secondary btn-sm' . ( $button['ajaxAction'] ? ' grid-ajax-action' : '' ) . '">' . $buttonValues['text'] . '</a>';
 							} else {
-								echo '<a href="' . UrlMaker::toAction( $buttonValues['controller'], $buttonValues['action'], array( $buttonValues['field'] => ( $buttonValues['field'] ? $value->$buttonValues['field'] : $value->{$button['field']} ) ) ) . '" title="" class="btn btn-outline-secondary btn-sm' . ( $button['ajaxAction'] ? ' grid-ajax-action' : '' ) . '">' . $buttonValues['text'] . '</a>';
+								echo '<a href="' . UrlMaker::toAction( $buttonValues['controller'], $buttonValues['action'], array( $buttonValues['field'] => ( $buttonValues['field'] ? $value->{$buttonValues['field']} : $value->{$button['field']} ) ) ) . '" title="" class="btn btn-outline-secondary btn-sm' . ( $button['ajaxAction'] ? ' grid-ajax-action' : '' ) . '">' . $buttonValues['text'] . '</a>';
 							}
 							echo '</td>';
 						}
@@ -199,7 +199,7 @@
 				if( $this->getPage() != $actualPage ) {
 			?>
 				<li class="page-item">
-					<a href="<?php echo $this->getUrlToList( array( 'page' => $actualPage, 'sortField' => $this->getSortField(), 'sortOrder' => $this->getSortOrder(), 'limit' => $this->getLimit(), 'filter' => $this->getFilters() ) ) ?>" title="">
+					<a href="<?php echo $this->getUrlToList( array( 'page' => $actualPage, 'sortField' => $this->getSortField(), 'sortOrder' => $this->getSortOrder(), 'limit' => $this->getLimit(), 'filter' => $this->getFilters() ) ) ?>" title="" class="page-link">
 						<?php
 						if ( $page > $middle && $actualPage == $startLink ) {
 							echo '<i class="fas fa-fw fa-ellipsis-h"></i>';

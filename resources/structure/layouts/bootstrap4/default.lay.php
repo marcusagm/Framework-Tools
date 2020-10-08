@@ -135,18 +135,19 @@
         -->
 
         <?php
-            \$this->addCSS('components/bootstrap.min.css');
-            \$this->addCSS('components/bootstrap-theme.min.css');
-            \$this->addCss('components/font-awesome.min.css');
-            \$this->addCss('components/grid.css');
-            \$this->addCss('components/treegrid.css');
-            \$this->addCss('components/treelist.css');
-            \$this->addCss('components/checkboxlist.css');
-            \$this->addCss('components/cropbox.css');
-            \$this->addCss('components/datepicker3.css');
+            \$this->addCSS('components/bootstrap.css');
+            \$this->addCSS('components/bootstrap.datepicker.css');
+            \$this->addCSS('components/bootstrap.datepicker.bs3.css');
+
             \$this->addCss('components/summernote.css');
-            \$this->addCss('components/jquery.custom.inputfile.css');
-            \$this->addCss('components/framework.css');
+
+            \$this->addCss('components/elfw.framework.css');
+            \$this->addCss('components/elui.general.css');
+            \$this->addCss('components/elui.grid.css');
+            \$this->addCss('components/elui.treegrid.css');
+            \$this->addCss('components/elui.treelist.css');
+            \$this->addCss('components/elui.checkboxlist.css');
+            \$this->addCss('components/elui.cropbox.css');
             \$this->addCss('layout/general.css');
             echo \$this->getCss();
         ?>
@@ -196,26 +197,31 @@ echo <<<EOF
         <?php
             \$this->addJs('components/jquery.js');
             \$this->addJs('components/jquery.cookie.js');
-            \$this->addJs('components/jquery.form.js');
             \$this->addJs('components/jquery.mask.js');
             \$this->addJs('components/jquery.maskmoney.js');
+            \$this->addJs('components/jquery.form.js');
             \$this->addJs('components/jquery.validate.js');
-            \$this->addJs('components/jquery.validate.pt_br.js');
-            \$this->addJs('components/jquery.validate.additional.js');
-            \$this->addJs('components/jquery.modalwindow.js');
-            \$this->addJs('components/jquery.cropbox.js');
+            \$this->addJs('components/jquery.validate.methods.js');
+            \$this->addJs('components/jquery.validate.ptbr.js');
             \$this->addJs('components/jquery.treegrid.js');
-            \$this->addJs('components/jquery.treegrid.bootstrap3.js');
-            \$this->addJs('components/jquery.custom.fileinput.js');
-            \$this->addJs('components/jquery.sharebutton.js');
-            \$this->addJs('components/bootstrap.min.js');
-            \$this->addJs('components/bootstrap.bootbox.min.js');
-            \$this->addJs('components/bootstrap.datepicker.min.js');
-            \$this->addJs('components/bootstrap.datepicker.pt_br.min.js');
-            \$this->addJs('components/summernote.min.js');
-            \$this->addJs('components/summernote.pt_br.js');
-            \$this->addJs('components/grid.js');
-            \$this->addJs('components/framework.js');
+            \$this->addJs('components/jquery.treegrid.bs3.js');
+
+            \$this->addJs('components/holder.js');
+            \$this->addJs('components/popper.js');
+            \$this->addJs('components/bootstrap.js');
+            \$this->addJs('components/bootstrap.datepicker.js');
+            \$this->addJs('components/bootstrap.datepicker.ptbr.js');
+
+            \$this->addJs('components/moment.js');
+            \$this->addJs('components/fontawesome.js');
+            \$this->addJs('components/summernote.js');
+            \$this->addJs('components/summernote-ptbr.js');
+
+            \$this->addJs('components/elfw.framework.js');
+            \$this->addJs('components/elui.grid.js');
+            \$this->addJs('components/elui.modalwindow.js');
+            \$this->addJs('components/elui.cropbox.js');
+            \$this->addJs('components/elui.input.js');
             echo \$this->getJs();
         ?>
     </body>

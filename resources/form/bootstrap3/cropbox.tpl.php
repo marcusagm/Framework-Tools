@@ -15,7 +15,7 @@
                     </label>
                 </div>
                 <div class="img-crop-update-preview">
-                    <img src="<?php echo "<?php echo \$this->record->getPhotoUrl() ?>" ?>" alt="Imagem" id="<?php echo $field['name'] ?>_image" class="img-thumbnail img-fluid">
+                    <img src="<?php echo '<?php echo \$this->record->get' . $field['camelcase'] . 'Url() ?>' ?>" alt="Imagem" id="<?php echo $field['name'] ?>_image" class="img-thumbnail img-fluid">
                 </div>
             </div>
         <?php echo '<?php } else { ?>' ?>

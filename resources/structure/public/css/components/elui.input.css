@@ -1,0 +1,37 @@
+.input-counter-wraper { 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.input-counter-wraper input,
+.input-counter-wraper textarea {
+    border: 0;
+    border-radius: 0;
+    box-shadow: 0;
+    -webkit-box-shadow: 0;
+}
+.input-counter-wraper .input-counter-view {
+    padding: 2px;
+    font-size: 12px;
+    line-height: 1;
+    text-align: right;
+    border-top: 1px solid #ccc;
+}
+.input-counter-wraper .input-counter-view .error { 
+    float:left;
+    font-size: 1em;
+    margin: 2px;
+    height: 18px;
+}
+.input-counter-wraper .input-counter-view .input-counter-view-count {
+    display: inline-block;
+    padding: 3px 6px;
+    margin-left: 5px;
+    background: #666;
+    color: #fff;
+    border-radius: 3px;
+}

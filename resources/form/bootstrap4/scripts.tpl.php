@@ -15,7 +15,7 @@ $(document).ready( function() {
                         $countAttributes = count( $attributes );
                         echo "\n\t\t\t";
                         echo '\'' . $field . '\' : { ';
-                        if( $attributes['required'] ) {
+                        if( $field['type'] != 'checkbox' && $field['type'] != 'radio' && $attributes['required'] ) {
                             echo '\'required\': true';
                             $countAttributes--;
                             echo $countAttributes > 0 ? ', ' : '';
