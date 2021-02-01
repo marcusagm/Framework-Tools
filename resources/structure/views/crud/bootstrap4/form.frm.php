@@ -17,7 +17,11 @@ if ($moduleGroup) {
 }
 ?>
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><?php echo '<?php echo UrlMaker::toAction( \'' , $module , '\', \'index\' ) ?>' ?>"><?php echo '<?php echo $this->title ?>' ?></a></li>
+    <?php if ($moduleGroup) { ?>
+        <li class="breadcrumb-item"><a href="<?php echo '<?php echo UrlMaker::toModuleAction( \'' , $moduleGroup , '\', \'' , $module , '\', \'index\' ) ?>' ?>"><?php echo '<?php echo $this->title ?>' ?></a></li>
+    <?php } else { ?>
+        <li class="breadcrumb-item"><a href="<?php echo '<?php echo UrlMaker::toAction( \'' , $module , '\', \'index\' ) ?>' ?>"><?php echo '<?php echo $this->title ?>' ?></a></li>
+    <?php } ?>
     <li class="breadcrumb-item active"><?php echo '<?php echo $this->record ? \'Editar\' : \'Adicionar\' ?>' ?></li>
 </ol>
 <?php
