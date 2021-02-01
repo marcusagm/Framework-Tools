@@ -10,6 +10,10 @@ echo <<<EOF
 
 EOF;
 ?>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<?php echo '<?php echo UrlMaker::toAction( \'' , $module , '\', \'index\' ) ?>' ?>"><?php echo '<?php echo $this->title ?>' ?></a></li>
+    <li class="breadcrumb-item active">Visualizar</li>
+</ol>
 <div class="card">
     <div class="card-header"><?php echo '<?php echo $this->title ?>' ?></div>
     <div class="card-body">
@@ -55,6 +59,6 @@ EOF;
         <a href="<?php echo '<?php echo UrlMaker::toAction( \'' , $module , '\', \'edit\', array( \'id\' => $this->record->id ) ) ?>' ?>" title="" class="btn btn-secondary"><i class="fas fa-edit"></i> Editar</a>
         <a href="<?php echo '<?php echo UrlMaker::toAction( \'' , $module , '\', \'delete\', array( \'id\' => $this->record->id ) ) ?>' ?>" title="" class="btn btn-danger"><i class="fas fa-trash"></i> Excluir</a>
         <?php } ?>
-        
+
     </div>
 </div>

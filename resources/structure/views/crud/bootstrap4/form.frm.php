@@ -15,6 +15,11 @@ if ($moduleGroup) {
 } else {
     echo '<?php $this->layout->addViewJs( \'' . $module . '_form.js\' ); ?>' . "\n";
 }
-
+?>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><?php echo '<?php echo UrlMaker::toAction( \'' , $module , '\', \'index\' ) ?>' ?>"><?php echo '<?php echo $this->title ?>' ?></a></li>
+    <li class="breadcrumb-item active"><?php echo '<?php echo $this->record ? \'Editar\' : \'Adicionar\' ?>' ?></li>
+</ol>
+<?php
 echo $formContent;
 

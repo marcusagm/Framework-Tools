@@ -11,6 +11,9 @@ echo <<<EOF
 
 EOF;
 ?>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active"><?php echo '<?php echo $this->title ?>' ?></li>
+</ol>
 <div class="card">
     <div class="card-header"><?php echo '<?php echo $this->title ?>' ?></div>
     <div class="card-body">
