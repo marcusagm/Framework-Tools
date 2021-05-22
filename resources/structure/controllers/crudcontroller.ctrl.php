@@ -356,7 +356,7 @@ foreach ($fields as $field) {
         echo "\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
         echo "\n\t\tif( \$date != '' ) {";
             echo "\n\t\t\t\$date = explode( ' ', \$date );";
-            echo "\n\t\t\t\$time = \$date[1]";
+            echo "\n\t\t\t\$time = \$date[1];";
             echo "\n\t\t\t\$date = explode( '/', \$date[0] );";
             echo "\n\t\t\t\$object->" . $field['id'] . " = date( 'Y-m-d H:i:s', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] . ' ' . \$time . ':00' ) );";
         echo "\n\t\t}\n";
@@ -432,7 +432,7 @@ foreach ($fields as $field) {
         echo "\t\t\$date = \$this->getHttpData( '" . $field['id'] . "' );";
         echo "\n\t\tif( \$date != '' ) {";
             echo "\n\t\t\t\$date = explode( ' ', \$date );";
-            echo "\n\t\t\t\$time = \$date[1]";
+            echo "\n\t\t\t\$time = \$date[1];";
             echo "\n\t\t\t\$date = explode( '/', \$date[0] );";
             echo "\n\t\t\t\$object->" . $field['name'] . " = date( 'Y-m-d H:i:s', strtotime( \$date[2] . '-' . \$date[1] . '-' . \$date[0] . ' ' . \$time . ':00' ) );";
         echo "\n\t\t}\n";
