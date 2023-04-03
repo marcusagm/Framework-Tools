@@ -80,5 +80,8 @@ local.properties
 # PHP Storm
 .idea/
 
+# VS code
+.vscode
+
 /projects/*
 /logs/*
